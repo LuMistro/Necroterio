@@ -1,8 +1,9 @@
 package br.com.necroterio.model;
 
 
+import br.com.necroterio.model.enums.Regiao;
+
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
@@ -11,12 +12,11 @@ public class AreasAfetadas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    private List<Regiao> regioes;
-    private List<String> observacao;
+    @Enumerated(EnumType.STRING)
+    private Regiao regiao;
+    private String observacao;
     @ManyToOne
     private Autopsia autopsia;
-
 
     public int getId() {
         return id;
@@ -26,20 +26,28 @@ public class AreasAfetadas {
         this.id = id;
     }
 
-    public List<Regiao> getRegioes() {
-        return regioes;
+    public Regiao getRegiao() {
+        return regiao;
     }
 
-    public void setRegioes(List<Regiao> regioes) {
-        this.regioes = regioes;
+    public void setRegiao(Regiao regiao) {
+        this.regiao = regiao;
     }
 
-    public List<String> getObservacao() {
+    public String getObservacao() {
         return observacao;
     }
 
-    public void setObservacao(List<String> observacao) {
+    public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public Autopsia getAutopsia() {
+        return autopsia;
+    }
+
+    public void setAutopsia(Autopsia autopsia) {
+        this.autopsia = autopsia;
     }
 
     @Override

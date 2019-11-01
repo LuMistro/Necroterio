@@ -7,9 +7,6 @@
     <persistence-unit name="Necroterio-PU">
 
   <!--#Mapeamento de classes -->
-  <class></class>
-        <class>model.</class>
-        <class>model.Usuario</class>
 
 
   <!--#Mapeamento de classes -->
@@ -18,7 +15,7 @@
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost/necroterio?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=America/Sao_Paulo"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.password" value="1234"/>
 
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 

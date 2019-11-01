@@ -12,6 +12,7 @@ public class Pessoa {
     private int id;
     private String cpf;
     private String nome;
+    @Temporal(TemporalType.DATE)
     private Date nascimento;
     @OneToMany(mappedBy = "pessoa")
     private List<Endereco> enderecos;
@@ -26,12 +27,28 @@ public class Pessoa {
         this.id = id;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
 
     public List<Endereco> getEnderecos() {
@@ -48,22 +65,6 @@ public class Pessoa {
 
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Date getNascimento() {
-        return nascimento;
-    }
-
-    public void setNascimento(Date nascimento) {
-        this.nascimento = nascimento;
     }
 
     @Override

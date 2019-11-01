@@ -1,10 +1,8 @@
 package br.com.necroterio.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Medico extends Pessoa {
@@ -13,11 +11,15 @@ public class Medico extends Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String CRM;
+    @OneToMany(mappedBy = "medico")
+    private List<Autopsia> autopsia;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -26,8 +28,16 @@ public class Medico extends Pessoa {
         return CRM;
     }
 
-    public void setCRM(String cRM) {
-        CRM = cRM;
+    public void setCRM(String CRM) {
+        this.CRM = CRM;
+    }
+
+    public List<Autopsia> getAutopsia() {
+        return autopsia;
+    }
+
+    public void setAutopsia(List<Autopsia> autopsia) {
+        this.autopsia = autopsia;
     }
 
     @Override

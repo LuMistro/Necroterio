@@ -16,6 +16,8 @@ public class Autopsia {
     @OneToMany(mappedBy = "autopsia")
     private List<AreasAfetadas> areasAfetadas;
     private String causaMorte;
+    @OneToOne
+    private Defunto defunto;
 
     public int getId() {
         return id;
@@ -55,6 +57,14 @@ public class Autopsia {
 
     public void setCausaMorte(String causaMorte) {
         this.causaMorte = causaMorte;
+    }
+
+    public Defunto getDefunto() {
+        return defunto;
+    }
+
+    public void setDefunto(Defunto defunto) {
+        this.defunto = defunto;
     }
 
     @Override

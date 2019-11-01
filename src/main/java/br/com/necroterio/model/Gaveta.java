@@ -1,9 +1,6 @@
 package br.com.necroterio.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Gaveta {
@@ -13,6 +10,8 @@ public class Gaveta {
     private int id;
     private String nome;
     private boolean ocupada;
+    @OneToOne
+    private Defunto defunto;
 
     public int getId() {
         return id;
@@ -36,6 +35,14 @@ public class Gaveta {
 
     public void setOcupada(boolean ocupada) {
         this.ocupada = ocupada;
+    }
+
+    public Defunto getDefunto() {
+        return defunto;
+    }
+
+    public void setDefunto(Defunto defunto) {
+        this.defunto = defunto;
     }
 
     @Override
