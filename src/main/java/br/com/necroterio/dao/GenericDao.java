@@ -34,7 +34,7 @@ public abstract class GenericDao<T, I extends Serializable> {
 	        return entity;
 	    }
 
-	    public T atualizar(@Valid T entity) {
+	    public T editar(@Valid T entity) {
 	        EntityTransaction t = entityManager.getTransaction();
 	        t.begin();
 	        entityManager.merge(entity);
@@ -43,7 +43,7 @@ public abstract class GenericDao<T, I extends Serializable> {
 	        return entity;
 	    }
 
-	    public void remover(T entity) {
+	    public void excluir(T entity) {
 	        entityManager.getTransaction().begin();
 	        entityManager.remove(entity);
 	        entityManager.flush();
@@ -51,14 +51,14 @@ public abstract class GenericDao<T, I extends Serializable> {
 
 	    }
 
-	    public List<T> listar() {
+	    public List<T> listarTodos() {
 	        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 	        CriteriaQuery<T> query = builder.createQuery(persistedClass);
 	        query.from(persistedClass);
 	        return entityManager.createQuery(query).getResultList();
 	    }
 
-	    public T encontrar(I id) {
+	    public T buscarPorId(I id) {
 	        T result = entityManager.find(persistedClass, id);
 	        entityManager.close();
 	        return result;

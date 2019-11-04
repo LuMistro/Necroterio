@@ -1,0 +1,91 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Funcionários</ui:define>
+    <ui:define name="logo">Cadastro de Funcionários</ui:define>
+
+    <ui:define name="conteudo">
+
+        <h:form id="campos">
+            <div class="ui-fluid">
+                <p:panelGrid columns="2" layout="grid"
+                             columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                             styleClass="ui-panelgrid-blank">
+                    <p:outputLabel value="Nome: " for="nome"/>
+                    <p:inputText id="nome" required="true"
+                                 requiredMessage="Nome deve ser preenchido"
+                                 placeholder="Informe seu nome"
+                                 value="#{pessoaBean.pessoa.nome}"/>
+
+                    <p:outputLabel value="CPF " for="CPF"/>
+                    <p:inputText id="CPF" required="true"
+                                 requiredMessage="CPF deve ser preenchido"
+                                 placeholder="Informe o CPF"
+                                 value="#{pessoaBean.pessoa.cpf}"/>
+
+
+                    <p:outputLabel value="Nascimento: " for="nascimento"/>
+                    <p:calendar id="nascimento" effect="fold" navigator="true"
+                                pattern="dd/MM/yyyy" required="true"
+                                requiredMessage="Nascimento deve ser preenchido"
+                                placeholder="dd/mm/aaaa"
+                        value="#{pessoaBean.pessoa.nascimento}">
+                    </p:calendar>
+                </p:panelGrid>
+            </div>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton value="Salvar" ajax="false" icon="fa fa-save"
+                                     action="#{pessoaBean.salvar}"/>
+
+                    <p:commandButton value="Limpar" ajax="false" icon="fa fa-eraser"
+                                     action="#{pessoaBean.limpar}"/>
+                </f:facet>
+            </p:toolbar>
+
+
+        </h:form>
+
+        <h2>Endereço</h2>
+
+        <p:spacer/>
+
+        <h:form id="tabela">
+            <p:dataTable var="p" reflow="true"
+                         value="#{pessoaBean.pessoas}">
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{p.nome}"/>
+                </p:column>
+
+                <p:column headerText="CPF">
+                    <h:outputText value="#{p.cpf}"/>
+                </p:column>
+
+                <p:column headerText="Nascimento">
+                    <h:outputText value="#{p.nascimento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"
+                                           timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerClass="colunaAcoes">
+                    <p:commandButton icon="fa fa-pencil">
+                        <f:setPropertyActionListener value="#{p}"
+                                                     target="#{pessoaBean.pessoa}"/>
+                    </p:commandButton>
+
+                    <p:commandButton icon="fa fa-trash" action="#{pessoaBean.excluir}">
+                        <f:setPropertyActionListener value="#{p}"
+                                                     target="#{pessoaBean.pessoa}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

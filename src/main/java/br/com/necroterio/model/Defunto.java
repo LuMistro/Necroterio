@@ -8,7 +8,7 @@ public class Defunto extends Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Temporal(TemporalType.DATE)
     private Date dataEntrada;
     @Temporal(TemporalType.DATE)
@@ -21,12 +21,12 @@ public class Defunto extends Pessoa {
     private Autopsia autopsia;
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

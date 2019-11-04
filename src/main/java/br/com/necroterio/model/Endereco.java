@@ -14,8 +14,6 @@ public class Endereco {
     private String logradouro;
     private String numero;
     private String complemento;
-    @ManyToOne
-    private Pessoa pessoa;
 
     public int getId() {
         return id;
@@ -71,14 +69,6 @@ public class Endereco {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     @Override

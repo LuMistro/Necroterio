@@ -9,21 +9,21 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String cpf;
     private String nome;
     @Temporal(TemporalType.DATE)
     private Date nascimento;
-    @OneToMany(mappedBy = "pessoa")
-    private List<Endereco> enderecos;
+    @OneToOne
+    private Endereco endereco;
     @OneToMany(mappedBy = "pessoa")
     private List<Telefone> telefones;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,12 +51,12 @@ public class Pessoa {
         this.nascimento = nascimento;
     }
 
-    public List<Endereco> getEnderecos() {
-        return enderecos;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public List<Telefone> getTelefones() {

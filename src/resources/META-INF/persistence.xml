@@ -6,10 +6,17 @@
 
     <persistence-unit name="Necroterio-PU">
 
-  <!--#Mapeamento de classes -->
+        <!--#Mapeamento de classes -->
+        <class>br.com.necroterio.model.Endereco</class>
+        <class>br.com.necroterio.model.Pessoa</class>
+        <class>br.com.necroterio.model.Autopsia</class>
+        <class>br.com.necroterio.model.Defunto</class>
+        <class>br.com.necroterio.model.AreasAfetadas</class>
+        <class>br.com.necroterio.model.Gaveta</class>
+        <class>br.com.necroterio.model.Medico</class>
+        <class>br.com.necroterio.model.Telefone</class>
 
-
-  <!--#Mapeamento de classes -->
+        <!--#Mapeamento de classes -->
 
         <properties>
             <property name="javax.persistence.jdbc.url"

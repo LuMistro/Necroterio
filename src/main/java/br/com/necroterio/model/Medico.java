@@ -15,12 +15,12 @@ public class Medico extends Pessoa {
     private List<Autopsia> autopsia;
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
