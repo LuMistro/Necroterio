@@ -1,5 +1,8 @@
 package br.com.necroterio.model;
 
+import br.com.necroterio.model.enums.Cidade;
+import br.com.necroterio.model.enums.Estado;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,8 +11,11 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String estado;
-    private String cidade;
+    private String cep;
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
+    @Enumerated(EnumType.STRING)
+    private Cidade cidade;
     private String bairro;
     private String logradouro;
     private String numero;
@@ -23,19 +29,27 @@ public class Endereco {
         this.id = id;
     }
 
-    public String getEstado() {
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
-    public String getCidade() {
+    public Cidade getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
 

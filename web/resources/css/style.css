@@ -1,4 +1,4 @@
-html, body{
+html, body {
     background-color: #323232;
 }
 
@@ -48,4 +48,9 @@ html, body{
     font-weight: revert;
     font-family: sans-serif;
     color: whitesmoke;
+}
+
+.subtitulo {
+    margin-left: 500px;
+    font-size: 20px;
 }

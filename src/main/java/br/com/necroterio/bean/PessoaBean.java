@@ -2,6 +2,8 @@ package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.PessoaDao;
 import br.com.necroterio.model.Pessoa;
+import br.com.necroterio.model.enums.Cidade;
+import br.com.necroterio.model.enums.Estado;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,6 +22,8 @@ public class PessoaBean implements Serializable {
     private Pessoa pessoa;
     private List<Pessoa> pessoas;
     private PessoaDao dao;
+    private Estado[] estados;
+    private Cidade[] cidades;
 
     @PostConstruct
     public void init() {
@@ -71,4 +75,11 @@ public class PessoaBean implements Serializable {
         return pessoas;
     }
 
+    public Estado[] getEstados() {
+        return Estado.values();
+    }
+
+    public Cidade[] getCidades() {
+        return Cidade.values();
+    }
 }
