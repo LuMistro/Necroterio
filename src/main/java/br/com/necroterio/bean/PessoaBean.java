@@ -1,6 +1,7 @@
 package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.PessoaDao;
+import br.com.necroterio.model.Endereco;
 import br.com.necroterio.model.Pessoa;
 import br.com.necroterio.model.enums.Cidade;
 import br.com.necroterio.model.enums.Estado;
@@ -57,6 +58,7 @@ public class PessoaBean implements Serializable {
 
     public void limpar() {
         pessoa = new Pessoa();
+        pessoa.setEndereco(new Endereco());
     }
 
     public void buscar() {
@@ -81,5 +83,13 @@ public class PessoaBean implements Serializable {
 
     public Cidade[] getCidades() {
         return Cidade.values();
+    }
+
+    public void setEstados(Estado[] estados) {
+        this.estados = estados;
+    }
+
+    public void setCidades(Cidade[] cidades) {
+        this.cidades = cidades;
     }
 }

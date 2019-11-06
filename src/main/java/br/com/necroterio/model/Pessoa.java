@@ -14,7 +14,7 @@ public class Pessoa {
     private String nome;
     @Temporal(TemporalType.DATE)
     private Date nascimento;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     @OneToMany(mappedBy = "pessoa")
     private List<Telefone> telefones;
