@@ -5,12 +5,12 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Ham Life</ui:define>
     <ui:define name="logo">Ham Life</ui:define>
+    <ui:define name="titulo">Ham Life</ui:define>
 
     <ui:define name="conteudo">
 
-        <h1>Gráficos que diz a média por dia de quantos corpos chegam na semana no necrotério</h1>
+        <p:barChart model="#{graficosBean.barModel}" style="width: 100%; height: 500px;"/>
 
     </ui:define>
 

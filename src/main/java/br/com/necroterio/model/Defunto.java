@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Defunto extends Pessoa {
+public class Defunto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +19,15 @@ public class Defunto extends Pessoa {
     private Gaveta gaveta;
     @OneToOne
     private Autopsia autopsia;
+    @OneToOne
+    private Contato contato;
+    @OneToOne
+    private Pessoa pessoa;
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -68,6 +70,22 @@ public class Defunto extends Pessoa {
 
     public void setAutopsia(Autopsia autopsia) {
         this.autopsia = autopsia;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     @Override

@@ -16,8 +16,8 @@ public class Pessoa {
     private Date nascimento;
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
-    @OneToMany(mappedBy = "pessoa")
-    private List<Telefone> telefones;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Telefone telefone;
 
     public Integer getId() {
         return id;
@@ -59,13 +59,14 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    public List<Telefone> getTelefones() {
-        return telefones;
+    public Telefone getTelefone() {
+        return telefone;
     }
 
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
     }
+
 
     @Override
     public int hashCode() {

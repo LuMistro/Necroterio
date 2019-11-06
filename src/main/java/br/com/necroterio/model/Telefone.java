@@ -10,8 +10,6 @@ public class Telefone {
     private int id;
     private String ddd;
     private String numero;
-    @ManyToOne
-    private Pessoa pessoa;
 
     public int getId() {
         return id;
@@ -37,14 +35,6 @@ public class Telefone {
         this.numero = numero;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -66,5 +56,4 @@ public class Telefone {
             return false;
         return true;
     }
-
 }

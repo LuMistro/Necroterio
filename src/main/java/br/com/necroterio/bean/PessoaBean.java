@@ -3,6 +3,7 @@ package br.com.necroterio.bean;
 import br.com.necroterio.dao.PessoaDao;
 import br.com.necroterio.model.Endereco;
 import br.com.necroterio.model.Pessoa;
+import br.com.necroterio.model.Telefone;
 import br.com.necroterio.model.enums.Cidade;
 import br.com.necroterio.model.enums.Estado;
 
@@ -25,6 +26,7 @@ public class PessoaBean implements Serializable {
     private PessoaDao dao;
     private Estado[] estados;
     private Cidade[] cidades;
+    private Telefone telefone;
 
     @PostConstruct
     public void init() {
@@ -59,6 +61,7 @@ public class PessoaBean implements Serializable {
     public void limpar() {
         pessoa = new Pessoa();
         pessoa.setEndereco(new Endereco());
+        pessoa.setTelefone(new Telefone());
     }
 
     public void buscar() {
@@ -91,5 +94,13 @@ public class PessoaBean implements Serializable {
 
     public void setCidades(Cidade[] cidades) {
         this.cidades = cidades;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
     }
 }

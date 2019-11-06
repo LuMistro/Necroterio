@@ -5,8 +5,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Defunto</ui:define>
-    <ui:define name="logo">Cadastro de corpos</ui:define>
+    <ui:define name="logo">Entrada de Corpos</ui:define>
+    <ui:define name="titulo">Corpos</ui:define>
+
 
     <ui:define name="conteudo">
 
@@ -15,78 +16,162 @@
                 <p:panelGrid columns="2" layout="grid"
                              columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
                              styleClass="ui-panelgrid-blank">
+
                     <p:outputLabel value="Nome: " for="nome"/>
                     <p:inputText id="nome" required="true"
                                  requiredMessage="Nome deve ser preenchido"
-                                 placeholder="Informe seu nome"
-                                 value="#{pessoaBean.pessoa.nome}"/>
+                                 placeholder="Informe o nome"
+                                 value="#{defuntoBean.defunto.pessoa.nome}"/>
 
                     <p:outputLabel value="CPF " for="CPF"/>
-                    <p:inputText id="CPF" required="true"
+                    <p:inputMask id="CPF" required="true"
                                  requiredMessage="CPF deve ser preenchido"
                                  placeholder="Informe o CPF"
-                                 value="#{pessoaBean.pessoa.cpf}"/>
-
+                                 value="#{defuntoBean.defunto.pessoa.cpf}"
+                                 mask="999.999.999-99"/>
 
                     <p:outputLabel value="Nascimento: " for="nascimento"/>
                     <p:calendar id="nascimento" effect="fold" navigator="true"
                                 pattern="dd/MM/yyyy" required="true"
                                 requiredMessage="Nascimento deve ser preenchido"
                                 placeholder="dd/mm/aaaa"
-                                value="#{pessoaBean.pessoa.nascimento}">
+                                mask="99/99/9999"
+                                value="#{defuntoBean.defunto.pessoa.nascimento}">
+
+                        <h1>Contato</h1>
+
+                        <p:outputLabel value="Nome do contato: " for="contatoNome"/>
+                        <p:inputText id="contatoNome" required="true"
+                                     requiredMessage="Nome do contato deve ser preenchido"
+                                     placeholder="Informe o nome do contato"
+                                     value="#{defuntoBean.contato.nome}"/>
+
+                        <p:outputLabel value="DDD do Telefone para contato: " for="DDDtelefoneContato"/>
+                        <p:outputLabel value="Telefone para contato: " for="telefoneContato"/>
+
+                        <p:inputText id="DDDtelefoneContato" required="true"
+                                     requiredMessage="Telefone do contato deve ser preenchido"
+                                     placeholder="Informe o DDD do telefone do contato"
+                                     value="#{defuntoBean.contato.telefone.ddd}"/>
+
+                        <p:inputText id="telefoneContato" required="true" effect="fold" navigator="true"
+                                     requiredMessage="Telefone do contato deve ser preenchido"
+                                     placeholder="Informe o telefone do contato"
+                                     value="#{defuntoBean.contato.telefone.numero}"/>
+
+                        <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
+                        <p:calendar id="dataEntrada" required="true"
+                                    pattern="dd/MM/yyyy"
+                                    requiredMessage="Data de entrada deve ser preenchido"
+                                    placeholder="Informe a data de entrada do corpo"
+                                    mask="99/99/9999"
+                                    value="#{defuntoBean.defunto.dataEntrada}"/>
                     </p:calendar>
+
+                    <p:outputLabel value="Data de saída: " for="dataSaida"/>
+                    <p:calendar id="dataSaida"
+                                pattern="dd/MM/yyyy"
+                                placeholder="Informe a data de saída do corpo"
+                                mask="99/99/9999"
+                                value="#{defuntoBean.defunto.dataSaida}"/>
+
+                    <p:calendar id="datMorte"
+                                pattern="dd/MM/yyyy"
+                                placeholder="Informe a data de morte do corpo"
+                                mask="99/99/9999"
+                                value="#{defuntoBean.defunto.dataMorte}"/>
+
+                    <p:outputLabel value="Gaveta: " for="gaveta"/>
+                    <p:selectOneMenu id="gaveta"
+                                     value="#{defuntoBean.defunto.gaveta}"
+                                     filter="true" filterMatchMode="startsWith">
+
+                        <f:selectItem itemLabel="Selecione uma gaveta ..."
+                                      noSelectionOption="true"/>
+                        <f:selectItems var="g"
+                                       value="#{defuntoBean.defunto.gaveta.nome}"
+                                       itemLabel="#{g.descricao}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:spacer/>
                 </p:panelGrid>
             </div>
+
+            <p:spacer/>
+
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandButton value="Salvar" ajax="false" icon="fa fa-save"
-                                     action="#{pessoaBean.salvar}"/>
+                    <p:commandButton value="Salvar" update="campos tabela" icon="fa fa-save"
+                                     action="#{defuntoBean.salvar}"/>
 
-                    <p:commandButton value="Limpar" ajax="false" icon="fa fa-eraser"
-                                     action="#{pessoaBean.limpar}"/>
+                    <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                                     action="#{defuntoBean.limpar}"/>
                 </f:facet>
             </p:toolbar>
 
 
         </h:form>
 
-        <h2>Endereço</h2>
-
         <p:spacer/>
 
         <h:form id="tabela">
-            <p:dataTable var="p" reflow="true"
-                         value="#{pessoaBean.pessoas}">
-
-                <p:column headerText="Nome">
-                    <h:outputText value="#{p.nome}"/>
+            <p:dataTable var="d" value="#{defuntoBean.defuntos}">
+                <f:facet name="header">
+                    Expanda para ver o detalhes de defunto
+                </f:facet>
+                <p:column style="width:16px">
+                    <p:rowToggler/>
                 </p:column>
-
                 <p:column headerText="CPF">
-                    <h:outputText value="#{p.cpf}"/>
+                    <h:outputText value="#{d.pessoa.cpf}"/>
                 </p:column>
-
+                <p:column headerText="Nome">
+                    <h:outputText value="#{d.pessoa.nome}"/>
+                </p:column>
                 <p:column headerText="Nascimento">
-                    <h:outputText value="#{p.nascimento}">
+                    <h:outputText value="#{d.pessoa.nascimento}">
                         <f:convertDateTime pattern="dd/MM/yyyy"
                                            timeZone="#{initParam.timezone}"/>
                     </h:outputText>
                 </p:column>
-
                 <p:column headerClass="colunaAcoes">
-                    <p:commandButton icon="fa fa-pencil" ajax="false">
-                        <f:setPropertyActionListener value="#{p}"
-                                                     target="#{pessoaBean.pessoa}"/>
+                    <p:commandButton icon="fa fa-pencil" update="campos tabela">
+                        <f:setPropertyActionListener value="#{d}"
+                                                     target="#{defuntoBean.defuntos}"/>
                     </p:commandButton>
 
-                    <p:commandButton icon="fa fa-trash" action="#{pessoaBean.excluir}" ajax="false">
-                        <f:setPropertyActionListener value="#{p}"
-                                                     target="#{pessoaBean.pessoa}"/>
+                    <p:commandButton icon="fa fa-trash" action="#{defuntoBean.excluir}" update="tabela">
+                        <f:setPropertyActionListener value="#{d}"
+                                                     target="#{defuntoBean.defuntos}"/>
                     </p:commandButton>
                 </p:column>
+
+
+                <p:rowExpansion>
+                    <p:panelGrid columns="2" columnClasses="label,value" style="width:100%">
+                        <f:facet name="header">
+                            <h:outputText value="Dados"/>
+                        </f:facet>
+
+                        <h:outputText value="CEP:"/>
+                        <h:outputText value="#{d.pessoa.nascimento}"/>
+
+                        <h:outputText value="Estado:"/>
+                        <h:outputText value="#{d.endereco.estado}"/>
+
+
+                        <h:outputText value="Telefones"/>
+                        <h:outputText value="#{d.telefone.ddd} #{d.telefone.numero}"/>
+
+                        <f:facet name="footer">
+                            <h:outputText value="Telefones"/>
+                        </f:facet>
+
+                    </p:panelGrid>
+                </p:rowExpansion>
             </p:dataTable>
         </h:form>
     </ui:define>
-
 
 </ui:composition>
