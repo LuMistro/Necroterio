@@ -1,6 +1,10 @@
 package br.com.necroterio.model;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Telefone {
@@ -10,6 +14,7 @@ public class Telefone {
     private int id;
     private String ddd;
     private String numero;
+
 
     public int getId() {
         return id;

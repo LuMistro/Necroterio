@@ -10,8 +10,12 @@ public class Contato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Telefone telefone;
+
+    public Contato() {
+        telefone = new Telefone();
+    }
 
     public Integer getId() {
         return id;

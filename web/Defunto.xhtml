@@ -36,37 +36,37 @@
                                 requiredMessage="Nascimento deve ser preenchido"
                                 placeholder="dd/mm/aaaa"
                                 mask="99/99/9999"
-                                value="#{defuntoBean.defunto.pessoa.nascimento}">
+                                value="#{defuntoBean.defunto.pessoa.nascimento}"/>
 
-                        <h1>Contato</h1>
+                    <h1>Contato</h1>
+                    <p:spacer/>
 
-                        <p:outputLabel value="Nome do contato: " for="contatoNome"/>
-                        <p:inputText id="contatoNome" required="true"
-                                     requiredMessage="Nome do contato deve ser preenchido"
-                                     placeholder="Informe o nome do contato"
-                                     value="#{defuntoBean.contato.nome}"/>
+                    <p:outputLabel value="Nome do contato: " for="contatoNome"/>
+                    <p:inputText id="contatoNome" required="true"
+                                 requiredMessage="Nome do contato deve ser preenchido"
+                                 placeholder="Informe o nome do contato"
+                                 value="#{defuntoBean.defunto.contato.nome}"/>
 
-                        <p:outputLabel value="DDD do Telefone para contato: " for="DDDtelefoneContato"/>
-                        <p:outputLabel value="Telefone para contato: " for="telefoneContato"/>
+                    <p:outputLabel value="DDD do Telefone para contato: " for="DDDtelefoneContato"/>
+                    <p:inputMask id="DDDtelefoneContato" required="true"
+                                 requiredMessage="Telefone do contato deve ser preenchido"
+                                 placeholder="Informe o DDD do telefone do contato"
+                                 mask="(99)"
+                                 value="#{defuntoBean.defunto.contato.telefone.ddd}"/>
 
-                        <p:inputText id="DDDtelefoneContato" required="true"
-                                     requiredMessage="Telefone do contato deve ser preenchido"
-                                     placeholder="Informe o DDD do telefone do contato"
-                                     value="#{defuntoBean.contato.telefone.ddd}"/>
+                    <p:outputLabel value="Telefone para contato: " for="telefoneContato"/>
+                    <p:inputText id="telefoneContato" required="true" effect="fold" navigator="true"
+                                 requiredMessage="Telefone do contato deve ser preenchido"
+                                 placeholder="Informe o telefone do contato"
+                                 value="#{defuntoBean.defunto.contato.telefone.numero}"/>
 
-                        <p:inputText id="telefoneContato" required="true" effect="fold" navigator="true"
-                                     requiredMessage="Telefone do contato deve ser preenchido"
-                                     placeholder="Informe o telefone do contato"
-                                     value="#{defuntoBean.contato.telefone.numero}"/>
-
-                        <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
-                        <p:calendar id="dataEntrada" required="true"
-                                    pattern="dd/MM/yyyy"
-                                    requiredMessage="Data de entrada deve ser preenchido"
-                                    placeholder="Informe a data de entrada do corpo"
-                                    mask="99/99/9999"
-                                    value="#{defuntoBean.defunto.dataEntrada}"/>
-                    </p:calendar>
+                    <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
+                    <p:calendar id="dataEntrada" required="true"
+                                pattern="dd/MM/yyyy"
+                                requiredMessage="Data de entrada deve ser preenchido"
+                                placeholder="Informe a data de entrada do corpo"
+                                mask="99/99/9999"
+                                value="#{defuntoBean.defunto.dataEntrada}"/>
 
                     <p:outputLabel value="Data de saída: " for="dataSaida"/>
                     <p:calendar id="dataSaida"
@@ -75,7 +75,8 @@
                                 mask="99/99/9999"
                                 value="#{defuntoBean.defunto.dataSaida}"/>
 
-                    <p:calendar id="datMorte"
+                    <p:outputLabel value="Data da Morte: " for="dataMorte"/>
+                    <p:calendar id="dataMorte"
                                 pattern="dd/MM/yyyy"
                                 placeholder="Informe a data de morte do corpo"
                                 mask="99/99/9999"
@@ -118,7 +119,7 @@
         <h:form id="tabela">
             <p:dataTable var="d" value="#{defuntoBean.defuntos}">
                 <f:facet name="header">
-                    Expanda para ver o detalhes de defunto
+                    Expanda para ver detalhes de defunto
                 </f:facet>
                 <p:column style="width:16px">
                     <p:rowToggler/>

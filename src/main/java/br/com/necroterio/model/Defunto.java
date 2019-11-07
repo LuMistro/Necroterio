@@ -19,9 +19,9 @@ public class Defunto {
     private Gaveta gaveta;
     @OneToOne
     private Autopsia autopsia;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Contato contato;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
 
     public Integer getId() {
