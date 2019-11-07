@@ -8,110 +8,118 @@
     <ui:define name="logo">Entrada de Corpos</ui:define>
     <ui:define name="titulo">Corpos</ui:define>
 
-
     <ui:define name="conteudo">
 
         <h:form id="campos">
             <div class="ui-fluid">
-                <p:panelGrid columns="2" layout="grid"
-                             columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
-                             styleClass="ui-panelgrid-blank">
+                <p:growl id="msgs" showDetail="true"/>
 
-                    <p:outputLabel value="Nome: " for="nome"/>
-                    <p:inputText id="nome" required="true"
-                                 requiredMessage="Nome deve ser preenchido"
-                                 placeholder="Informe o nome"
-                                 value="#{defuntoBean.defunto.pessoa.nome}"/>
+                <h1 class="subtitulo" style="margin-top:0">Ficha de cadastro</h1>
+                <p:tabView>
+                    <p:tab title="Dados Pessoais">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+                            <p:outputLabel for="indigente" value=" É indigente?"/>
+                            <p:selectBooleanCheckbox id="indigente" value="false" unselectable="true">
+                                <f:selectItem itemLabel="Sim" itemValue="#{defuntoBean.defunto.indigente}"/>
+                            </p:selectBooleanCheckbox>
 
-                    <p:outputLabel value="CPF " for="CPF"/>
-                    <p:inputMask id="CPF" required="true"
-                                 requiredMessage="CPF deve ser preenchido"
-                                 placeholder="Informe o CPF"
-                                 value="#{defuntoBean.defunto.pessoa.cpf}"
-                                 mask="999.999.999-99"/>
+                            <p:outputLabel value="Nome: " for="nome"/>
+                            <p:inputText id="nome" required="true"
+                                         requiredMessage="Nome deve ser preenchido"
+                                         placeholder="Informe o nome"
+                                         value="#{defuntoBean.defunto.pessoa.nome}"/>
 
-                    <p:outputLabel value="Nascimento: " for="nascimento"/>
-                    <p:calendar id="nascimento" effect="fold" navigator="true"
-                                pattern="dd/MM/yyyy" required="true"
-                                requiredMessage="Nascimento deve ser preenchido"
-                                placeholder="dd/mm/aaaa"
-                                mask="99/99/9999"
-                                value="#{defuntoBean.defunto.pessoa.nascimento}"/>
+                            <p:outputLabel value="CPF " for="CPF"/>
+                            <p:inputMask id="CPF"
+                                         placeholder="Informe o CPF"
+                                         value="#{defuntoBean.defunto.pessoa.cpf}"
+                                         mask="999.999.999-99"/>
 
-                    <h1>Contato</h1>
+                            <p:outputLabel value="Nascimento: " for="nascimento"/>
+                            <p:calendar id="nascimento" effect="fold" navigator="true"
+                                        pattern="dd/MM/yyyy"
+                                        requiredMessage="Nascimento deve ser preenchido"
+                                        placeholder="dd/mm/aaaa"
+                                        mask="99/99/9999"
+                                        value="#{defuntoBean.defunto.pessoa.nascimento}"/>
+                            <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
+                            <p:calendar id="dataEntrada" required="true"
+                                        pattern="dd/MM/yyyy"
+                                        requiredMessage="Data de entrada deve ser preenchido"
+                                        placeholder="Informe a data de entrada do corpo"
+                                        mask="99/99/9999"
+                                        value="#{defuntoBean.defunto.dataEntrada}"/>
+
+                            <p:outputLabel value="Data de saída: " for="dataSaida"/>
+                            <p:calendar id="dataSaida"
+                                        pattern="dd/MM/yyyy"
+                                        placeholder="Informe a data de saída do corpo"
+                                        mask="99/99/9999"
+                                        value="#{defuntoBean.defunto.dataSaida}"/>
+
+                            <p:outputLabel value="Data da Morte: " for="dataMorte"/>
+                            <p:calendar id="dataMorte"
+                                        pattern="dd/MM/yyyy"
+                                        placeholder="Informe a data de morte do corpo"
+                                        mask="99/99/9999"
+                                        value="#{defuntoBean.defunto.dataMorte}"/>
+
+                            <p:outputLabel value="Gaveta: " for="gaveta"/>
+                            <p:selectOneMenu id="gaveta"
+                                             value="#{defuntoBean.defunto.gaveta}"
+                                             filter="true" filterMatchMode="startsWith">
+
+                                <f:selectItem itemLabel="Selecione uma gaveta ..."
+                                              noSelectionOption="true"/>
+                                <f:selectItems var="g"
+                                               value="#{defuntoBean.defunto.gaveta.nome}"
+                                               itemLabel="#{g.descricao}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Endereço">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+
+                            <p:outputLabel value="Nome do contato: " for="contatoNome"/>
+                            <p:inputText id="contatoNome"
+                                         requiredMessage="Nome do contato deve ser preenchido"
+                                         placeholder="Informe o nome do contato"
+                                         value="#{defuntoBean.defunto.contato.nome}"/>
+
+                            <p:outputLabel value="Fixo: " for="fixo"/>
+                            <p:inputMask id="fixo"
+                                         requiredMessage="Telefone fixo deve ser preenchido"
+                                         placeholder="Informe o telefone fixo"
+                                         mask="(99)9999-9999"
+                                         value="#{defuntoBean.defunto.contato.telefone.fixo}"/>
+
+                            <p:outputLabel value="Celular: " for="celular"/>
+                            <p:inputMask id="celular"
+                                         requiredMessage="Número de celular deve ser preenchido"
+                                         placeholder="Informe o número de celular"
+                                         mask="(99)99999-9999"
+                                         value="#{defuntoBean.defunto.contato.telefone.celular}"/>
+
+                        </p:panelGrid>
+                    </p:tab>
                     <p:spacer/>
-
-                    <p:outputLabel value="Nome do contato: " for="contatoNome"/>
-                    <p:inputText id="contatoNome" required="true"
-                                 requiredMessage="Nome do contato deve ser preenchido"
-                                 placeholder="Informe o nome do contato"
-                                 value="#{defuntoBean.defunto.contato.nome}"/>
-
-                    <p:outputLabel value="DDD do Telefone para contato: " for="DDDtelefoneContato"/>
-                    <p:inputMask id="DDDtelefoneContato" required="true"
-                                 requiredMessage="Telefone do contato deve ser preenchido"
-                                 placeholder="Informe o DDD do telefone do contato"
-                                 mask="(99)"
-                                 value="#{defuntoBean.defunto.contato.telefone.ddd}"/>
-
-                    <p:outputLabel value="Telefone para contato: " for="telefoneContato"/>
-                    <p:inputText id="telefoneContato" required="true" effect="fold" navigator="true"
-                                 requiredMessage="Telefone do contato deve ser preenchido"
-                                 placeholder="Informe o telefone do contato"
-                                 value="#{defuntoBean.defunto.contato.telefone.numero}"/>
-
-                    <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
-                    <p:calendar id="dataEntrada" required="true"
-                                pattern="dd/MM/yyyy"
-                                requiredMessage="Data de entrada deve ser preenchido"
-                                placeholder="Informe a data de entrada do corpo"
-                                mask="99/99/9999"
-                                value="#{defuntoBean.defunto.dataEntrada}"/>
-
-                    <p:outputLabel value="Data de saída: " for="dataSaida"/>
-                    <p:calendar id="dataSaida"
-                                pattern="dd/MM/yyyy"
-                                placeholder="Informe a data de saída do corpo"
-                                mask="99/99/9999"
-                                value="#{defuntoBean.defunto.dataSaida}"/>
-
-                    <p:outputLabel value="Data da Morte: " for="dataMorte"/>
-                    <p:calendar id="dataMorte"
-                                pattern="dd/MM/yyyy"
-                                placeholder="Informe a data de morte do corpo"
-                                mask="99/99/9999"
-                                value="#{defuntoBean.defunto.dataMorte}"/>
-
-                    <p:outputLabel value="Gaveta: " for="gaveta"/>
-                    <p:selectOneMenu id="gaveta"
-                                     value="#{defuntoBean.defunto.gaveta}"
-                                     filter="true" filterMatchMode="startsWith">
-
-                        <f:selectItem itemLabel="Selecione uma gaveta ..."
-                                      noSelectionOption="true"/>
-                        <f:selectItems var="g"
-                                       value="#{defuntoBean.defunto.gaveta.nome}"
-                                       itemLabel="#{g.descricao}"/>
-                    </p:selectOneMenu>
-
-
-                    <p:spacer/>
-                </p:panelGrid>
+                </p:tabView>
             </div>
-
-            <p:spacer/>
-
             <p:toolbar>
                 <f:facet name="left">
                     <p:commandButton value="Salvar" update="campos tabela" icon="fa fa-save"
                                      action="#{defuntoBean.salvar}"/>
 
                     <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                                     process="@this"
                                      action="#{defuntoBean.limpar}"/>
                 </f:facet>
             </p:toolbar>
-
-
         </h:form>
 
         <p:spacer/>
@@ -130,8 +138,8 @@
                 <p:column headerText="Nome">
                     <h:outputText value="#{d.pessoa.nome}"/>
                 </p:column>
-                <p:column headerText="Nascimento">
-                    <h:outputText value="#{d.pessoa.nascimento}">
+                <p:column headerText="Data de Entrada">
+                    <h:outputText value="#{d.dataEntrada}">
                         <f:convertDateTime pattern="dd/MM/yyyy"
                                            timeZone="#{initParam.timezone}"/>
                     </h:outputText>
@@ -155,18 +163,47 @@
                             <h:outputText value="Dados"/>
                         </f:facet>
 
-                        <h:outputText value="CEP:"/>
-                        <h:outputText value="#{d.pessoa.nascimento}"/>
+                        <h:outputText value="Data de Nascimento:"/>
+                        <h:outputText value="#{d.pessoa.nascimento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"
+                                               timeZone="#{initParam.timezone}"/>
+                        </h:outputText>
 
-                        <h:outputText value="Estado:"/>
-                        <h:outputText value="#{d.endereco.estado}"/>
+                        <h:outputText value="Data de Morte:"/>
+                        <h:outputText value="#{d.dataMorte}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"
+                                               timeZone="#{initParam.timezone}"/>
+                        </h:outputText>
 
+                        <h:outputText value="Data de Saída:"/>
+                        <h:outputText value="#{d.dataSaida}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"
+                                               timeZone="#{initParam.timezone}"/>
+                        </h:outputText>
 
-                        <h:outputText value="Telefones"/>
-                        <h:outputText value="#{d.telefone.ddd} #{d.telefone.numero}"/>
+                        <h:outputText value="Gaveta:"/>
+                        <h:outputText value="#{d.gaveta}"/>
+
+                        <h:outputText value="Causa da morte:"/>
+                        <h:outputText value="#{d.autopsia.causaMorte}"/>
+
+                        <h:outputText value="É indigente?"/>
+                        <h:outputText value="#{d.indigente}"/>
+
+                        <p:separator/>
+                        <p:separator/>
+
+                        <h:outputText value="Nome do Contato:"/>
+                        <h:outputText value="#{d.contato.nome}"/>
+
+                        <h:outputText value="Celular"/>
+                        <h:outputText value=" #{d.contato.telefone.celular}"/>
+
+                        <h:outputText value="Fixo"/>
+                        <h:outputText value="#{d.contato.telefone.fixo}"/>
 
                         <f:facet name="footer">
-                            <h:outputText value="Telefones"/>
+                            <h:outputText value="Contato"/>
                         </f:facet>
 
                     </p:panelGrid>
@@ -174,5 +211,4 @@
             </p:dataTable>
         </h:form>
     </ui:define>
-
 </ui:composition>

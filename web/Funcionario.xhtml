@@ -8,126 +8,134 @@
     <ui:define name="titulo">Funcionários</ui:define>
     <ui:define name="logo">Cadastro de Funcionários</ui:define>
 
+
     <ui:define name="conteudo">
 
         <h:form id="campos">
             <div class="ui-fluid">
-                <p:panelGrid columns="2" layout="grid"
-                             columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
-                             styleClass="ui-panelgrid-blank">
-                    <p:outputLabel value="Nome: " for="nome"/>
-                    <p:inputText id="nome" required="true"
-                                 requiredMessage="Nome deve ser preenchido"
-                                 placeholder="Informe o nome"
-                                 value="#{pessoaBean.pessoa.nome}"/>
+                <p:growl id="msgs" showDetail="true"/>
 
-                    <p:outputLabel value="CPF " for="CPF"/>
-                    <p:inputMask id="CPF" required="true"
-                                 requiredMessage="CPF deve ser preenchido"
-                                 placeholder="Informe o CPF"
-                                 value="#{pessoaBean.pessoa.cpf}"
-                                 mask="999.999.999-99"/>
+                <h1 class="subtitulo" style="margin-top:0">Ficha de cadastro</h1>
+                <p:tabView>
+                    <p:tab title="Dados Pessoais">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="Nome: " for="nome"/>
+                            <p:inputText id="nome" required="true"
+                                         requiredMessage="Nome deve ser preenchido"
+                                         placeholder="Informe o nome"
+                                         value="#{pessoaBean.pessoa.nome}"/>
 
-                    <p:outputLabel value="Nascimento: " for="nascimento"/>
-                    <p:calendar id="nascimento" effect="fold" navigator="true"
-                                pattern="dd/MM/yyyy" required="true"
-                                requiredMessage="Nascimento deve ser preenchido"
-                                placeholder="dd/mm/aaaa"
-                                mask="99/99/9999"
-                                value="#{pessoaBean.pessoa.nascimento}">
-                    </p:calendar>
+                            <p:outputLabel value="CPF " for="CPF"/>
+                            <p:inputMask id="CPF" required="true"
+                                         requiredMessage="CPF deve ser preenchido"
+                                         placeholder="Informe o CPF"
+                                         value="#{pessoaBean.pessoa.cpf}"
+                                         mask="999.999.999-99"/>
 
-                    <h1>Endereço</h1>
+                            <p:outputLabel value="Nascimento: " for="nascimento"/>
+                            <p:calendar id="nascimento" effect="fold" navigator="true"
+                                        pattern="dd/MM/yyyy" required="true"
+                                        requiredMessage="Nascimento deve ser preenchido"
+                                        placeholder="dd/mm/aaaa"
+                                        mask="99/99/9999"
+                                        value="#{pessoaBean.pessoa.nascimento}">
+                            </p:calendar>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Endereço">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="CEP " for="cep"/>
+                            <p:inputMask id="cep" required="true"
+                                         requiredMessage="CEP deve ser preenchido"
+                                         placeholder="Informe o CEP"
+                                         value="#{pessoaBean.pessoa.endereco.cep}"
+                                         mask="99999-999"/>
 
+                            <p:outputLabel value="Estado: " for="estado"/>
+                            <p:selectOneMenu id="estado"
+                                             value="#{pessoaBean.pessoa.endereco.estado}"
+                                             filter="true" filterMatchMode="startsWith">
+
+                                <f:selectItem itemLabel="Selecione um estado ..."
+                                              noSelectionOption="true"/>
+
+                                <f:selectItems var="e"
+                                               value="#{pessoaBean.estados}"
+                                               itemLabel="#{e.descricao}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Cidade: " for="cidade"/>
+                            <p:selectOneMenu id="cidade"
+                                             value="#{pessoaBean.pessoa.endereco.cidade}"
+                                             filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Selecione uma cidade ..."
+                                              noSelectionOption="true"/>
+
+                                <f:selectItems var="c"
+                                               value="#{pessoaBean.cidades}"
+                                               itemLabel="#{c.descricao}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Bairro: " for="bairro"/>
+                            <p:inputText id="bairro" required="true"
+                                         requiredMessage="Bairro deve ser preenchido"
+                                         placeholder="Informe o bairro"
+                                         value="#{pessoaBean.pessoa.endereco.bairro}"/>
+
+                            <p:outputLabel value="Logradouro: " for="logradouro"/>
+                            <p:inputText id="logradouro" required="true"
+                                         requiredMessage="Logradouro deve ser preenchido"
+                                         placeholder="Informe o Logradouro"
+                                         value="#{pessoaBean.pessoa.endereco.logradouro}"/>
+
+                            <p:outputLabel value="Número: " for="numero"/>
+                            <p:inputText id="numero" required="true"
+                                         requiredMessage="Número deve ser preenchido"
+                                         placeholder="Informe o número da residência"
+                                         value="#{pessoaBean.pessoa.endereco.numero}"/>
+
+                            <p:outputLabel value="Complemento: " for="complemento"/>
+                            <p:inputText id="complemento"
+                                         requiredMessage="Complemento deve ser preenchido"
+                                         placeholder="Informe o complemento"
+                                         value="#{pessoaBean.pessoa.endereco.complemento}"/>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Telefones">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="Fixo: " for="fixo"/>
+                            <p:inputMask id="fixo"
+                                         requiredMessage="Telefone fixo deve ser preenchido"
+                                         placeholder="Informe o telefone fixo"
+                                         mask="(99)9999-9999"
+                                         value="#{pessoaBean.pessoa.telefone.fixo}"/>
+
+                            <p:outputLabel value="Celular: " for="celular"/>
+                            <p:inputMask id="celular"
+                                         requiredMessage="Número de celular deve ser preenchido"
+                                         placeholder="Informe o número de celular"
+                                         mask="(99)99999-9999"
+                                         value="#{pessoaBean.pessoa.telefone.celular}"/>
+                        </p:panelGrid>
+                    </p:tab>
                     <p:spacer/>
-
-                    <p:outputLabel value="CEP " for="cep"/>
-                    <p:inputMask id="cep" required="true"
-                                 requiredMessage="CEP deve ser preenchido"
-                                 placeholder="Informe o CEP"
-                                 value="#{pessoaBean.pessoa.endereco.cep}"
-                                 mask="99999-999"/>
-
-                    <p:outputLabel value="Estado: " for="estado"/>
-                    <p:selectOneMenu id="estado"
-                                     value="#{pessoaBean.pessoa.endereco.estado}"
-                                     filter="true" filterMatchMode="startsWith">
-
-                        <f:selectItem itemLabel="Selecione um estado ..."
-                                      noSelectionOption="true"/>
-
-                        <f:selectItems var="e"
-                                       value="#{pessoaBean.estados}"
-                                       itemLabel="#{e.descricao}"/>
-                    </p:selectOneMenu>
-
-                    <p:outputLabel value="Cidade: " for="cidade"/>
-                    <p:selectOneMenu id="cidade"
-                                     value="#{pessoaBean.pessoa.endereco.cidade}"
-                                     filter="true" filterMatchMode="startsWith">
-                        <f:selectItem itemLabel="Selecione uma cidade ..."
-                                      noSelectionOption="true"/>
-
-                        <f:selectItems var="c"
-                                       value="#{pessoaBean.cidades}"
-                                       itemLabel="#{c.descricao}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="Bairro: " for="bairro"/>
-                    <p:inputText id="bairro" required="true"
-                                 requiredMessage="Bairro deve ser preenchido"
-                                 placeholder="Informe o bairro"
-                                 value="#{pessoaBean.pessoa.endereco.bairro}"/>
-
-                    <p:outputLabel value="Logradouro: " for="logradouro"/>
-                    <p:inputText id="logradouro" required="true"
-                                 requiredMessage="Logradouro deve ser preenchido"
-                                 placeholder="Informe o Logradouro"
-                                 value="#{pessoaBean.pessoa.endereco.logradouro}"/>
-
-                    <p:outputLabel value="Número: " for="numero"/>
-                    <p:inputText id="numero" required="true"
-                                 requiredMessage="Número deve ser preenchido"
-                                 placeholder="Informe o número da residência"
-                                 value="#{pessoaBean.pessoa.endereco.numero}"/>
-
-                    <p:outputLabel value="Complemento: " for="complemento"/>
-                    <p:inputText id="complemento"
-                                 requiredMessage="Complemento deve ser preenchido"
-                                 placeholder="Informe o complemento"
-                                 value="#{pessoaBean.pessoa.endereco.complemento}"/>
-
-                    <h1>Telefone</h1>
-
-                    <p:spacer/>
-
-                    <p:outputLabel value="DDD: " for="ddd"/>
-                    <p:inputMask id="ddd"
-                                 requiredMessage="Ddd deve ser preenchido"
-                                 placeholder="Informe o DDD"
-                                 mask="(99)"
-                                 value="#{pessoaBean.pessoa.telefone.ddd}"/>
-
-                    <p:outputLabel value="Número: " for="telefone"/>
-                    <p:inputText id="telefone"
-                                 requiredMessage="Número deve ser preenchido"
-                                 placeholder="Informe o Número"
-                                 value="#{pessoaBean.pessoa.telefone.numero}"/>
-                </p:panelGrid>
+                </p:tabView>
             </div>
-
-            <p:spacer/>
-
             <p:toolbar>
                 <f:facet name="left">
                     <p:commandButton value="Salvar" update="campos tabela" icon="fa fa-save"
                                      action="#{pessoaBean.salvar}"/>
 
                     <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                                     process="@this"
                                      action="#{pessoaBean.limpar}"/>
                 </f:facet>
             </p:toolbar>
-
-
         </h:form>
 
         <p:spacer/>
@@ -164,7 +172,6 @@
                     </p:commandButton>
                 </p:column>
 
-
                 <p:rowExpansion>
                     <p:panelGrid columns="2" columnClasses="label,value" style="width:100%">
                         <f:facet name="header">
@@ -175,10 +182,10 @@
                         <h:outputText value="#{p.endereco.cep}"/>
 
                         <h:outputText value="Estado:"/>
-                        <h:outputText value="#{p.endereco.estado}"/>
+                        <h:outputText value="#{p.endereco.estado.descricao}"/>
 
                         <h:outputText value="Cidade:"/>
-                        <h:outputText value="#{p.endereco.cidade}"/>
+                        <h:outputText value="#{p.endereco.cidade.descricao}"/>
 
                         <h:outputText value="Bairro:"/>
                         <h:outputText value="#{p.endereco.bairro}"/>
@@ -192,17 +199,21 @@
                         <h:outputText value="Complemento"/>
                         <h:outputText value="#{p.endereco.complemento}"/>
 
-                        <h:outputText value="Telefones"/>
-                        <h:outputText value="#{p.telefone.ddd} #{p.telefone.numero}"/>
+                        <p:separator/>
+                        <p:separator/>
+
+                        <h:outputText value="Celular"/>
+                        <h:outputText value=" #{p.telefone.celular}"/>
+
+                        <h:outputText value="Fixo"/>
+                        <h:outputText value="#{p.telefone.fixo}"/>
 
                         <f:facet name="footer">
                             <h:outputText value="Telefones"/>
                         </f:facet>
-
                     </p:panelGrid>
                 </p:rowExpansion>
             </p:dataTable>
         </h:form>
     </ui:define>
-
 </ui:composition>

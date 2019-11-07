@@ -12,8 +12,8 @@ public class Telefone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String ddd;
-    private String numero;
+    private String celular;
+    private String fixo;
 
 
     public int getId() {
@@ -24,20 +24,20 @@ public class Telefone {
         this.id = id;
     }
 
-    public String getDdd() {
-        return ddd;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setDdd(String ddd) {
-        this.ddd = ddd;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getFixo() {
+        return fixo;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setFixo(String fixo) {
+        this.fixo = fixo;
     }
 
     @Override

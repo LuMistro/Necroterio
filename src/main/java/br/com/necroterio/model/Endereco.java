@@ -2,7 +2,7 @@ package br.com.necroterio.model;
 
 import br.com.necroterio.model.enums.Cidade;
 import br.com.necroterio.model.enums.Estado;
-
+import javax.validation.Valid;
 import javax.persistence.*;
 
 @Entity

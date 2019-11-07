@@ -1,6 +1,10 @@
 package br.com.necroterio.model;
 
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.faces.annotation.FacesConfig;
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +14,7 @@ public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @CPF(message = "Informe um CPF válido")
     private String cpf;
     private String nome;
     @Temporal(TemporalType.DATE)

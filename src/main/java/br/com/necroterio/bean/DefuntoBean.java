@@ -23,7 +23,6 @@ public class DefuntoBean implements Serializable {
     private Defunto defunto;
     private List<Defunto> defuntos;
     private DefuntoDao dao;
-    private Contato contato;
 
     @PostConstruct
     public void init() {
@@ -81,11 +80,4 @@ public class DefuntoBean implements Serializable {
         this.defuntos = defuntos;
     }
 
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
 }

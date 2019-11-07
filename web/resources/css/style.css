@@ -52,4 +52,7 @@ html, body {
 
 .subtitulo {
     font-size: 20px;
+    font-weight: revert;
+    font-family: sans-serif;
+    color: whitesmoke;
 }
