@@ -1,230 +1,96 @@
 <ui:composition template="/WEB-INF/templates/layout.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                                 xmlns="http://www.w3.org/1999/xhtml"
+                                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                                 xmlns:f="http://java.sun.com/jsf/core"
+                                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Médico</ui:define>
-    <ui:define name="logo">Cadastro de Médico</ui:define>
+<ui:define name="titulo">Médico</ui:define>
+<ui:define name="logo">Cadastro de Médico</ui:define>
 
-    <ui:define name="conteudo">
+<ui:define name="conteudo">
+    <h:form id="tabela">
+        <p:dataTable var="d" value="#{defuntoBean.defuntos}">
+            <f:facet name="header">
+                Expanda para ver detalhes de defunto
+            </f:facet>
+            <p:column style="width:16px">
+                <p:rowToggler/>
+            </p:column>
+            <p:column headerText="CPF">
+                <h:outputText value="#{d.pessoa.cpf}"/>
+            </p:column>
+            <p:column headerText="Nome">
+                <h:outputText value="#{d.pessoa.nome}"/>
+            </p:column>
+            <p:column headerText="Data de Entrada">
+                <h:outputText value="#{d.dataEntrada}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"
+                                       timeZone="#{initParam.timezone}"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerClass="colunaAcoes">
+                <p:commandButton icon="fa fa-pencil" update="campos tabela">
+                    <f:setPropertyActionListener value="#{d}"
+                                                 target="#{defuntoBean.defuntos}"/>
+                </p:commandButton>
 
-        <h:form id="campos">
-            <div class="ui-fluid">
-                <p:growl id="msgs" showDetail="true"/>
+                <p:commandButton icon="fa fa-trash" action="#{defuntoBean.excluir}" update="tabela">
+                    <f:setPropertyActionListener value="#{d}"
+                                                 target="#{defuntoBean.defuntos}"/>
+                </p:commandButton>
+            </p:column>
 
-                <h1 class="subtitulo" style="margin-top:0">Ficha de cadastro</h1>
-                <p:tabView>
-                    <p:tab title="Dados Pessoais">
-                        <p:panelGrid columns="2" layout="grid"
-                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
-                                     styleClass="ui-panelgrid-blank">
-                            <p:outputLabel value="Nome: " for="nome"/>
-                            <p:inputText id="nome" required="true"
-                                         requiredMessage="Nome deve ser preenchido"
-                                         placeholder="Informe o nome"
-                                         value="#{medicoBean.medico.nome}"/>
 
-                            <p:outputLabel value="CPF " for="CPF"/>
-                            <p:inputMask id="CPF" required="true"
-                                         requiredMessage="CPF deve ser preenchido"
-                                         placeholder="Informe o CPF"
-                                         value="#{medicoBean.medico.cpf}"
-                                         mask="999.999.999-99"/>
+            <p:rowExpansion>
+                <p:panelGrid columns="2" columnClasses="label,value" style="width:100%">
+                    <f:facet name="header">
+                        <h:outputText value="Dados"/>
+                    </f:facet>
 
-                            <p:outputLabel value="Nascimento: " for="nascimento"/>
-                            <p:calendar id="nascimento" effect="fold" navigator="true"
-                                        pattern="dd/MM/yyyy" required="true"
-                                        requiredMessage="Nascimento deve ser preenchido"
-                                        placeholder="dd/mm/aaaa"
-                                        mask="99/99/9999"
-                                        value="#{medicoBean.medico.nascimento}">
-                            </p:calendar>
-
-                            <p:outputLabel value="CRM " for="crm"/>
-                            <p:inputText id="crm" required="true"
-                                         requiredMessage="CRM deve ser preenchido"
-                                         placeholder="Informe o CRM"
-                                         value="#{medicoBean.medico.CRM}"/>
-
-                        </p:panelGrid>
-                    </p:tab>
-                    <p:tab title="Endereço">
-                        <p:panelGrid columns="2" layout="grid"
-                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
-                                     styleClass="ui-panelgrid-blank">
-
-                            <p:outputLabel value="CEP " for="cep"/>
-                            <p:inputMask id="cep" required="true"
-                                         requiredMessage="CEP deve ser preenchido"
-                                         placeholder="Informe o CEP"
-                                         value="#{medicoBean.medico.endereco.cep}"
-                                         mask="99999-999"/>
-
-                            <p:outputLabel value="Estado: " for="estado"/>
-                            <p:selectOneMenu id="estado"
-                                             required="true"
-                                             requiredMessage="Estado deve ser preenchido"
-                                             value="#{medicoBean.medico.endereco.estado}"
-                                             filter="true" filterMatchMode="startsWith">
-
-                                <f:selectItem itemLabel="Selecione um estado ..."
-                                              noSelectionOption="true"/>
-
-                                <f:selectItems var="e"
-                                               value="#{medicoBean.estados}"
-                                               itemLabel="#{e.descricao}"/>
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="Cidade: " for="cidade"/>
-                            <p:selectOneMenu id="cidade"
-                                             value="#{medicoBean.medico.endereco.cidade}"
-                                             required="true"
-                                             requiredMessage="CPF deve ser preenchido"
-                                             filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Selecione uma cidade ..."
-                                              noSelectionOption="true"/>
-
-                                <f:selectItems var="c"
-                                               value="#{medicoBean.cidades}"
-                                               itemLabel="#{c.descricao}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Bairro: " for="bairro"/>
-                            <p:inputText id="bairro" required="true"
-                                         requiredMessage="Bairro deve ser preenchido"
-                                         placeholder="Informe o bairro"
-                                         value="#{medicoBean.medico.endereco.bairro}"/>
-
-                            <p:outputLabel value="Logradouro: " for="logradouro"/>
-                            <p:inputText id="logradouro" required="true"
-                                         requiredMessage="Logradouro deve ser preenchido"
-                                         placeholder="Informe o Logradouro"
-                                         value="#{medicoBean.medico.endereco.logradouro}"/>
-
-                            <p:outputLabel value="Número: " for="numero"/>
-                            <p:inputText id="numero" required="true"
-                                         requiredMessage="Número deve ser preenchido"
-                                         placeholder="Informe o número da residência"
-                                         value="#{medicoBean.medico.endereco.numero}"/>
-
-                            <p:outputLabel value="Complemento: " for="complemento"/>
-                            <p:inputText id="complemento"
-                                         placeholder="Informe o complemento"
-                                         value="#{medicoBean.medico.endereco.complemento}"/>
-                        </p:panelGrid>
-                    </p:tab>
-                    <p:tab title="Telefones">
-                        <p:panelGrid columns="2" layout="grid"
-                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
-                                     styleClass="ui-panelgrid-blank">
-                            <p:outputLabel value="Fixo: " for="fixo"/>
-                            <p:inputMask id="fixo"
-                                         requiredMessage="Telefone fixo deve ser preenchido"
-                                         placeholder="Informe o telefone fixo"
-                                         mask="(99)9999-9999"
-                                         value="#{pessoaBean.pessoa.telefone.fixo}"/>
-
-                            <p:outputLabel value="Celular: " for="celular"/>
-                            <p:inputMask id="celular"
-                                         requiredMessage="Número de celular deve ser preenchido"
-                                         placeholder="Informe o número de celular"
-                                         mask="(99)99999-9999"
-                                         value="#{pessoaBean.pessoa.telefone.celular}"/>
-                        </p:panelGrid>
-                    </p:tab>
-                </p:tabView>
-            </div>
-            <p:toolbar>
-                <f:facet name="left">
-                    <p:commandButton value="Salvar" update="campos tabela" icon="fa fa-save"
-                                     action="#{medicoBean.salvar}"/>
-
-                    <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
-                                     process="@this"
-                                     action="#{medicoBean.limpar}"/>
-                </f:facet>
-            </p:toolbar>
-        </h:form>
-
-        <p:spacer/>
-
-        <h:form id="tabela">
-            <p:dataTable var="p" value="#{medicoBean.medicos}">
-                <f:facet name="header">
-                    Expanda para ver detalhes de médico
-                </f:facet>
-                <p:column style="width:16px">
-                    <p:rowToggler/>
-                </p:column>
-                <p:column headerText="CPF">
-                    <h:outputText value="#{p.cpf}"/>
-                </p:column>
-                <p:column headerText="Nome">
-                    <h:outputText value="#{p.nome}"/>
-                </p:column>
-                <p:column headerText="Nascimento">
-                    <h:outputText value="#{p.nascimento}">
+                    <h:outputText value="Data de Nascimento:"/>
+                    <h:outputText value="#{d.pessoa.nascimento}">
                         <f:convertDateTime pattern="dd/MM/yyyy"
                                            timeZone="#{initParam.timezone}"/>
                     </h:outputText>
-                </p:column>
-                <p:column headerClass="colunaAcoes">
-                    <p:commandButton icon="fa fa-pencil" update="campos tabela">
-                        <f:setPropertyActionListener value="#{p}"
-                                                     target="#{medicoBean.medico}"/>
-                    </p:commandButton>
 
-                    <p:commandButton icon="fa fa-trash" action="#{medicoBean.excluir}" update="tabela">
-                        <f:setPropertyActionListener value="#{p}"
-                                                     target="#{medicoBean.medico}"/>
-                    </p:commandButton>
-                </p:column>
+                    <h:outputText value="Data de Morte:"/>
+                    <h:outputText value="#{d.dataMorte}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"
+                                           timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
 
+                    <h:outputText value="Data de Saída:"/>
+                    <h:outputText value="#{d.dataSaida}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"
+                                           timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
 
-                <p:rowExpansion>
-                    <p:panelGrid columns="2" columnClasses="label,value" style="width:100%">
-                        <f:facet name="header">
-                            <h:outputText value="Endereço"/>
-                        </f:facet>
+                    <h:outputText value="Gaveta:"/>
+                    <h:outputText value="#{d.gaveta}"/>
 
-                        <h:outputText value="CEP:"/>
-                        <h:outputText value="#{p.endereco.cep}"/>
+                    <h:outputText value="Causa da morte:"/>
+                    <h:outputText value="#{d.autopsia.causaMorte}"/>
 
-                        <h:outputText value="Estado:"/>
-                        <h:outputText value="#{p.endereco.estado}"/>
+                    <p:separator/>
+                    <p:separator/>
 
-                        <h:outputText value="Cidade:"/>
-                        <h:outputText value="#{p.endereco.cidade}"/>
+                    <h:outputText value="Nome do Contato:"/>
+                    <h:outputText value="#{d.contato.nome}"/>
 
-                        <h:outputText value="Bairro:"/>
-                        <h:outputText value="#{p.endereco.bairro}"/>
+                    <h:outputText value="Celular"/>
+                    <h:outputText value=" #{d.contato.telefone.celular}"/>
 
-                        <h:outputText value="Logradouro:"/>
-                        <h:outputText value="#{p.endereco.logradouro}"/>
+                    <h:outputText value="Fixo"/>
+                    <h:outputText value="#{d.contato.telefone.fixo}"/>
 
-                        <h:outputText value="Número:"/>
-                        <h:outputText value="#{p.endereco.numero}"/>
+                    <f:facet name="footer">
+                        <h:outputText value="Contato"/>
+                    </f:facet>
 
-                        <h:outputText value="Complemento"/>
-                        <h:outputText value="#{p.endereco.complemento}"/>
-
-                        <p:separator/>
-                        <p:separator/>
-
-                        <h:outputText value="Celular"/>
-                        <h:outputText value=" #{p.telefone.celular}"/>
-
-                        <h:outputText value="Fixo"/>
-                        <h:outputText value="#{p.telefone.fixo}"/>
-
-                        <f:facet name="footer">
-                            <h:outputText value="Telefones"/>
-                        </f:facet>
-
-                    </p:panelGrid>
-                </p:rowExpansion>
-            </p:dataTable>
-        </h:form>
-    </ui:define>
+                </p:panelGrid>
+            </p:rowExpansion>
+        </p:dataTable>
+    </h:form>
+</ui:define>
 </ui:composition>
