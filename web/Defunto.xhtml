@@ -20,10 +20,10 @@
                         <p:panelGrid columns="2" layout="grid"
                                      columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
                                      styleClass="ui-panelgrid-blank">
-                            <p:outputLabel for="indigente" value=" É indigente?"/>
-                            <p:selectBooleanCheckbox id="indigente" value="false" unselectable="true">
-                                <f:selectItem itemLabel="Sim" itemValue="#{defuntoBean.defunto.indigente}"/>
-                            </p:selectBooleanCheckbox>
+
+
+                            <p:outputLabel value=" É indigente?"/>
+                            <p:button outcome="Indigente.xhtml" type="button" value="Cadastrar Indigente"/>
 
                             <p:outputLabel value="Nome: " for="nome"/>
                             <p:inputText id="nome" required="true"
@@ -80,7 +80,7 @@
 
                         </p:panelGrid>
                     </p:tab>
-                    <p:tab title="Endereço">
+                    <p:tab title="Contato">
                         <p:panelGrid columns="2" layout="grid"
                                      columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
                                      styleClass="ui-panelgrid-blank">
@@ -186,9 +186,6 @@
 
                         <h:outputText value="Causa da morte:"/>
                         <h:outputText value="#{d.autopsia.causaMorte}"/>
-
-                        <h:outputText value="É indigente?"/>
-                        <h:outputText value="#{d.indigente}"/>
 
                         <p:separator/>
                         <p:separator/>

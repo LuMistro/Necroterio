@@ -23,7 +23,6 @@ public class Defunto {
     private Contato contato;
     @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
-    private boolean indigente;
 
     public Integer getId() {
         return id;
@@ -87,14 +86,6 @@ public class Defunto {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-    }
-
-    public boolean isIndigente() {
-        return indigente;
-    }
-
-    public void setIndigente(boolean indigente) {
-        this.indigente = indigente;
     }
 
     @Override
