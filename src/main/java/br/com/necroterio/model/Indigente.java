@@ -16,7 +16,7 @@ public class Indigente {
     private Date dataMorte;
     @OneToOne(cascade = CascadeType.ALL)
     private Autopsia autopsia;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Gaveta gaveta;
 
     public Integer getId() {

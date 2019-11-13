@@ -48,7 +48,6 @@ public abstract class GenericDao<T, I extends Serializable> {
 	        entityManager.remove(entity);
 	        entityManager.flush();
 	        entityManager.getTransaction().commit();
-
 	    }
 
 	    public List<T> listarTodos() {

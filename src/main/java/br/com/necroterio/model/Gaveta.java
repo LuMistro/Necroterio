@@ -12,6 +12,8 @@ public class Gaveta {
     private boolean ocupada;
     @OneToOne
     private Defunto defunto;
+    @OneToOne
+    private Indigente indigente;
 
     public int getId() {
         return id;
@@ -43,6 +45,14 @@ public class Gaveta {
 
     public void setDefunto(Defunto defunto) {
         this.defunto = defunto;
+    }
+
+    public Indigente getIndigente() {
+        return indigente;
+    }
+
+    public void setIndigente(Indigente indigente) {
+        this.indigente = indigente;
     }
 
     @Override

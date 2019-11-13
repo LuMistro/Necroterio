@@ -56,3 +56,11 @@ html, body {
     font-family: sans-serif;
     color: whitesmoke;
 }
+
+.endereco input, .campos input, .ui-selectonemenu.ui-selectonemenu {
+    width: 100%;
+}
+
+#camposAutopsia {
+    color: yellow;
+}

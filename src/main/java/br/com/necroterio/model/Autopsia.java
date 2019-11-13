@@ -3,13 +3,14 @@ package br.com.necroterio.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Autopsia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private Date dataAutopsia;
     @ManyToOne
     private Medico medico;
@@ -19,11 +20,11 @@ public class Autopsia {
     @OneToOne
     private Defunto defunto;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,25 +69,15 @@ public class Autopsia {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Autopsia autopsia = (Autopsia) o;
+        return id == autopsia.id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Autopsia other = (Autopsia) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id);
     }
-
 }

@@ -24,9 +24,17 @@
                             <p:outputLabel value="Identificador: " for="nome"/>
                             <p:inputMask id="nome" required="true"
                                          requiredMessage="Indigente deve ser preenchido"
-                                         placeholder="Informe o Identificador"
+                                         placeholder="xxx-0000"
                                          mask="aaa-9999"
                                          value="#{indigenteBean.indigente.identificador}"/>
+
+                            <p:outputLabel value="Data da morte: " for="dataMorte"/>
+                            <p:calendar id="dataMorte" required="true"
+                                        pattern="dd/MM/yyyy"
+                                        requiredMessage="Data de morte deve ser preenchido"
+                                        placeholder="Informe a data de morte do corpo"
+                                        mask="99/99/9999"
+                                        value="#{indigenteBean.indigente.dataMorte}"/>
 
                             <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
                             <p:calendar id="dataEntrada" required="true"
@@ -82,10 +90,10 @@
                 <p:column style="width:16px">
                     <p:rowToggler/>
                 </p:column>
-                <p:column headerText="Identificador">
-                    <h:outputText value="#{d.pessoa.cpf}"/>
+                <p:column headerText="Identificador" filterBy="#{d.identificador}" sortBy="#{d.identificador}">
+                    <h:outputText value="#{d.identificador}"/>
                 </p:column>
-                <p:column headerText="Data de Entrada">
+                <p:column headerText="Data de Entrada" sortBy="#{d.dataEntrada}" filterBy="#{d.dataEntrada}">
                     <h:outputText value="#{d.dataEntrada}">
                         <f:convertDateTime pattern="dd/MM/yyyy"
                                            timeZone="#{initParam.timezone}"/>
@@ -135,7 +143,7 @@
                         <h:outputText value="#{d.autopsia.causaMorte}"/>
 
                         <h:outputText value="Autópsia"/>
-                        <h:outputText value="Clique aqui para ir até a autópsia completa"/>
+                        <p:button outcome="Autopsia.xhtml" type="button" value="Ir até Autópsia"/>
 
 
                     </p:panelGrid>

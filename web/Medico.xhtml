@@ -158,13 +158,13 @@
                 <p:column style="width:16px">
                     <p:rowToggler/>
                 </p:column>
-                <p:column headerText="CPF">
+                <p:column headerText="CPF" filterBy="#{p.cpf}" sortBy="#{p.cpf}">
                     <h:outputText value="#{p.cpf}"/>
                 </p:column>
-                <p:column headerText="Nome">
+                <p:column headerText="Nome" filterBy="#{p.nome}" sortBy="#{p.nome}">
                     <h:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:column headerText="Nascimento">
+                <p:column headerText="Nascimento" filterBy="#{p.nascimento}" sortBy="#{p.nascimento}">
                     <h:outputText value="#{p.nascimento}">
                         <f:convertDateTime pattern="dd/MM/yyyy"
                                            timeZone="#{initParam.timezone}"/>
