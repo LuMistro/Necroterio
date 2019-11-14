@@ -60,24 +60,57 @@ public class DefuntoBean implements Serializable {
         defunto.setPessoa(new Pessoa());
     }
 
-    public void buscar() {
-        defuntos = dao.listarTodos();
+    public boolean validaDatas() {
+        if (defunto.getDataEntrada().after(defunto.getDataMorte()) || defunto.getDataEntrada() == defunto.getDataMorte()) {
+            return true;
+        }
+        if (defunto.getDataEntrada().after(defunto.getPessoa().getNascimento()) || defunto.getDataEntrada() == defunto.getPessoa().getNascimento()) {
+            return true;
+        }
+        if (defunto.getDataEntrada().before(defunto.getDataSaida()) || defunto.getDataEntrada() == defunto.getDataSaida()) {
+            return true;
+        }
+        if (defunto.getDataMorte().after(defunto.getPessoa().getNascimento()) || defunto.getDataMorte() == defunto.getPessoa().getNascimento()) {
+            return true;
+        }
+        if (defunto.getDataMorte().after(defunto.getDataEntrada()) || defunto.getDataMorte() == defunto.getDataEntrada()){
+            return true;
+        }
+        if (defunto.getDataMorte().before(defunto.getDataSaida()) || defunto.getDataMorte() == defunto.getDataSaida()){
+            return true;
+        }
+        return false;
     }
 
-    public Defunto getDefunto() {
+
+//    Data de nascimento < = data de morte
+//    Data de nacimento < = data de Entrada
+//    Data de nascimento < = data de saída
+//
+
+//    Data de saída >= data de nascimento
+//    Data de saída >= data de Entrada
+//    Data de saída >= data de saída
+
+
+public void buscar(){
+        defuntos=dao.listarTodos();
+        }
+
+public Defunto getDefunto(){
         return defunto;
-    }
+        }
 
-    public void setDefunto(Defunto defunto) {
-        this.defunto = defunto;
-    }
+public void setDefunto(Defunto defunto){
+        this.defunto=defunto;
+        }
 
-    public List<Defunto> getDefuntos() {
+public List<Defunto> getDefuntos(){
         return defuntos;
-    }
+        }
 
-    public void setDefuntos(List<Defunto> defuntos) {
-        this.defuntos = defuntos;
-    }
+public void setDefuntos(List<Defunto> defuntos){
+        this.defuntos=defuntos;
+        }
 
-}
+        }

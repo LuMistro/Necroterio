@@ -1,6 +1,7 @@
 package br.com.necroterio.model;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -23,6 +24,7 @@ public class Defunto {
     private Contato contato;
     @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
+
 
     public Integer getId() {
         return id;

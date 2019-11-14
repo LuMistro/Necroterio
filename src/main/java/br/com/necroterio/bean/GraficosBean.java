@@ -1,5 +1,7 @@
 package br.com.necroterio.bean;
 
+import br.com.necroterio.dao.DefuntoDao;
+import br.com.necroterio.dto.MortosPorDiaDTO;
 import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
@@ -23,7 +25,15 @@ import java.util.List;
 @ManagedBean
 public class GraficosBean implements Serializable {
 
+    private DefuntoDao dao;
+    private List<MortosPorDiaDTO> mortosPorDiaDTOS;
+
     private BarChartModel barModel;
+
+    public GraficosBean() {
+        dao = new DefuntoDao();
+        mortosPorDiaDTOS = new ArrayList<>();
+    }
 
     @PostConstruct
     public void init() {
@@ -33,19 +43,22 @@ public class GraficosBean implements Serializable {
     public void createBarModel() {
         barModel = new BarChartModel();
         ChartData data = new ChartData();
-
         BarChartDataSet barDataSet = new BarChartDataSet();
+
         barDataSet.setLabel("Quantidade de corpos que chegaram no último mês");
 
-        List<Number> values = new ArrayList<>();
-        values.add(65);
-        values.add(59);
-        values.add(80);
-        values.add(81);
-        values.add(90);
-        values.add(55);
-        values.add(40);
-        barDataSet.setData(values);
+        List<Number> valores = new ArrayList<>();
+        List<String> rotulos = new ArrayList<>();
+
+        for (MortosPorDiaDTO dto : mortosPorDiaDTOS) {
+            rotulos.add(dto.getDefunto());
+            valores.add(dto.getQuantidade());
+        }
+
+        barDataSet.setData(valores);
+        data.setLabels(rotulos);
+
+        barModel.setData(data);
 
         List<String> bgColor = new ArrayList<>();
         bgColor.add("rgba(255, 99, 132, 0.2)");
@@ -70,16 +83,16 @@ public class GraficosBean implements Serializable {
 
         data.addChartDataSet(barDataSet);
 
-        List<String> labels = new ArrayList<>();
-        labels.add("Segunda-Feira");
-        labels.add("Terça-Feira");
-        labels.add("Quarta-Feira");
-        labels.add("Quinta-Feira");
-        labels.add("Sexta-Feira");
-        labels.add("Sábado");
-        labels.add("Domingo");
-        data.setLabels(labels);
-        barModel.setData(data);
+//        List<String> labels = new ArrayList<>();
+//        labels.add("Segunda-Feira");
+//        labels.add("Terça-Feira");
+//        labels.add("Quarta-Feira");
+//        labels.add("Quinta-Feira");
+//        labels.add("Sexta-Feira");
+//        labels.add("Sábado");
+//        labels.add("Domingo");
+//        data.setLabels(labels);
+//        barModel.setData(data);
 
         //Options
         BarChartOptions options = new BarChartOptions();
@@ -90,11 +103,7 @@ public class GraficosBean implements Serializable {
         linearAxes.setTicks(ticks);
         cScales.addYAxesData(linearAxes);
         options.setScales(cScales);
-//
-//        Title title = new Title();
-//        title.setDisplay(true);
-//        title.setText("Bar Chart");
-//        options.setTitle(title);
+
 
         Legend legend = new Legend();
         legend.setDisplay(true);
