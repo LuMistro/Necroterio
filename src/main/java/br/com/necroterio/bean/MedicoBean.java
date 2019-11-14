@@ -19,8 +19,6 @@ import java.util.List;
 @ViewScoped
 public class MedicoBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private Medico medico;
     private List<Medico> medicos;
     private MedicoDao dao;

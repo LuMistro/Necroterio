@@ -1,10 +1,9 @@
 package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.AutopsiaDao;
-import br.com.necroterio.model.AreasAfetadas;
-import br.com.necroterio.model.Autopsia;
-import br.com.necroterio.model.Defunto;
-import br.com.necroterio.model.Medico;
+import br.com.necroterio.model.*;
+import br.com.necroterio.model.enums.Regiao;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,21 +17,19 @@ import java.util.List;
 @ViewScoped
 @ManagedBean
 public class AutopsiaBean implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private Autopsia autopsia;
     private List<Autopsia> autopsias;
     private AutopsiaDao dao;
-    private List<Integer> columns;
+    private Regiao[] regiaos;
+    private AreasAfetadas areaAfetada;
+    private List<AreasAfetadas> listaDeAreasAfetadas;
 
 
     @PostConstruct
     public void init() {
         dao = new AutopsiaDao();
-        columns = new ArrayList<Integer>();
-        for (int i = 1; i < 7; i++) {
-            columns.add(i);
-        }
+
         limpar();
         buscar();
     }
@@ -61,27 +58,22 @@ public class AutopsiaBean implements Serializable {
     }
 
     public void limpar() {
+        areaAfetada = new AreasAfetadas();
         autopsia = new Autopsia();
         autopsia.setMedico(new Medico());
         autopsia.setDefunto(new Defunto());
-        autopsia.setAreasAfetadas(new ArrayList<>());
-        columns = new ArrayList<>();
+        autopsia.getDefunto().setPessoa(new Pessoa());
+        listaDeAreasAfetadas = new ArrayList<>();
+
     }
 
-    public void increment() {
-        if (columns.size() < 20) {
-            columns.add(columns.size() + 1);
-        }
-    }
-
-    public void decrease() {
-        if (columns.size() > 1) {
-            columns.remove(columns.size() - 1);
-        }
-    }
 
     public void buscar() {
         autopsias = dao.listarTodos();
+    }
+
+    public void adicionarLista() {
+        listaDeAreasAfetadas.add(areaAfetada);
     }
 
     public Autopsia getAutopsia() {
@@ -100,11 +92,27 @@ public class AutopsiaBean implements Serializable {
         this.autopsias = autopsias;
     }
 
-    public List<Integer> getColumns() {
-        return columns;
+    public AutopsiaDao getDao() {
+        return dao;
     }
 
-    public void setColumns(List<Integer> columns) {
-        this.columns = columns;
+    public void setDao(AutopsiaDao dao) {
+        this.dao = dao;
+    }
+
+    public Regiao[] getRegiaos() {
+        return Regiao.values();
+    }
+
+    public void setRegiaos(Regiao[] regiaos) {
+        this.regiaos = regiaos;
+    }
+
+    public AreasAfetadas getAreaAfetada() {
+        return areaAfetada;
+    }
+
+    public void setAreaAfetada(AreasAfetadas areaAfetada) {
+        this.areaAfetada = areaAfetada;
     }
 }

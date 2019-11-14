@@ -19,8 +19,6 @@ import java.util.List;
 @ManagedBean
 public class PessoaBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private Pessoa pessoa;
     private List<Pessoa> pessoas;
     private PessoaDao dao;

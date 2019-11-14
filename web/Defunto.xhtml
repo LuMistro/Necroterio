@@ -38,35 +38,32 @@
                                          value="#{defuntoBean.defunto.pessoa.cpf}"
                                          mask="999.999.999-99"/>
 
+
                             <p:outputLabel value="Nascimento: " for="nascimento"/>
-                            <p:calendar id="nascimento" effect="fold" navigator="true"
+                            <p:calendar id="nascimento"
                                         pattern="dd/MM/yyyy"
-                                        required="true"
-                                        requiredMessage="Nascimento deve ser preenchido"
-                                        placeholder="dd/mm/aaaa"
+                                        placeholder="Informe a data de nascimento"
                                         mask="99/99/9999"
                                         value="#{defuntoBean.defunto.pessoa.nascimento}"/>
 
                             <p:outputLabel value="Data da Morte: " for="dataMorte"/>
                             <p:calendar id="dataMorte"
                                         pattern="dd/MM/yyyy"
-                                        required="true"
-                                        placeholder="Informe a data de morte do corpo"
+                                        placeholder="Informe a data de morte"
                                         mask="99/99/9999"
                                         value="#{defuntoBean.defunto.dataMorte}"/>
 
                             <p:outputLabel value="Data de entrada: " for="dataEntrada"/>
-                            <p:calendar id="dataEntrada" required="true"
+                            <p:calendar id="dataEntrada"
                                         pattern="dd/MM/yyyy"
-                                        requiredMessage="Data de entrada deve ser preenchido"
-                                        placeholder="Informe a data de entrada do corpo"
+                                        placeholder="Informe a data de entrada"
                                         mask="99/99/9999"
                                         value="#{defuntoBean.defunto.dataEntrada}"/>
 
                             <p:outputLabel value="Data de saída: " for="dataSaida"/>
                             <p:calendar id="dataSaida"
                                         pattern="dd/MM/yyyy"
-                                        placeholder="Informe a data de saída do corpo"
+                                        placeholder="Informe a data de saída"
                                         mask="99/99/9999"
                                         value="#{defuntoBean.defunto.dataSaida}"/>
 
@@ -143,7 +140,8 @@
                 <p:column headerText="Nome" filterBy="#{d.pessoa.nome}" sortBy="#{d.pessoa.nome}">
                     <h:outputText value="#{d.pessoa.nome}"/>
                 </p:column>
-                <p:column headerText="Data de Entrada" sortBy="#{d.pessoa.nascimento}" filterBy="#{d.pessoa.nascimento}">
+                <p:column headerText="Data de Entrada" sortBy="#{d.pessoa.nascimento}"
+                          filterBy="#{d.pessoa.nascimento}">
                     <h:outputText value="#{d.dataEntrada}">
                         <f:convertDateTime pattern="dd/MM/yyyy"
                                            timeZone="#{initParam.timezone}"/>
@@ -152,12 +150,12 @@
                 <p:column headerClass="colunaAcoes">
                     <p:commandButton icon="fa fa-pencil" update="campos tabela">
                         <f:setPropertyActionListener value="#{d}"
-                                                     target="#{defuntoBean.defuntos}"/>
+                                                     target="#{defuntoBean.defunto}"/>
                     </p:commandButton>
 
                     <p:commandButton icon="fa fa-trash" action="#{defuntoBean.excluir}" update="tabela">
                         <f:setPropertyActionListener value="#{d}"
-                                                     target="#{defuntoBean.defuntos}"/>
+                                                     target="#{defuntoBean.defunto}"/>
                     </p:commandButton>
                 </p:column>
 
@@ -193,7 +191,7 @@
                         <h:outputText value="#{d.autopsia.causaMorte}"/>
 
                         <h:outputText value="Autópsia"/>
-                        <p:button outcome="Autopsia.xhtml" type="button" value="Ir até Autópsia"/>
+                        <p:button outcome="AutopsiaDefunto.xhtml" type="button" value="Ir até Autópsia"/>
 
                         <p:separator/>
                         <p:separator/>

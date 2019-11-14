@@ -18,8 +18,6 @@ import java.util.List;
 @ManagedBean
 public class DefuntoBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private Defunto defunto;
     private List<Defunto> defuntos;
     private DefuntoDao dao;
@@ -32,12 +30,13 @@ public class DefuntoBean implements Serializable {
     }
 
     public void salvar() {
-        if (defunto.getId() == null) {
-            dao.salvar(defunto);
-        } else {
-            dao.editar(defunto);
+        if (validaDatas()) {
+            if (defunto.getId() == null) {
+                dao.salvar(defunto);
+            } else {
+                dao.editar(defunto);
+            }
         }
-
         limpar();
         buscar();
     }
@@ -61,56 +60,40 @@ public class DefuntoBean implements Serializable {
     }
 
     public boolean validaDatas() {
-        if (defunto.getDataEntrada().after(defunto.getDataMorte()) || defunto.getDataEntrada() == defunto.getDataMorte()) {
+        FacesMessage mensagem = new FacesMessage();
+        mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+
+        if (defunto.getDataEntrada().after(defunto.getDataMorte())
+                && defunto.getDataEntrada().after(defunto.getPessoa().getNascimento())
+                && defunto.getDataEntrada().before(defunto.getDataSaida())
+                && defunto.getDataMorte().after(defunto.getPessoa().getNascimento())
+                && defunto.getDataMorte().before(defunto.getDataSaida())
+                && defunto.getPessoa().getNascimento().before(defunto.getDataSaida())) {
             return true;
         }
-        if (defunto.getDataEntrada().after(defunto.getPessoa().getNascimento()) || defunto.getDataEntrada() == defunto.getPessoa().getNascimento()) {
-            return true;
-        }
-        if (defunto.getDataEntrada().before(defunto.getDataSaida()) || defunto.getDataEntrada() == defunto.getDataSaida()) {
-            return true;
-        }
-        if (defunto.getDataMorte().after(defunto.getPessoa().getNascimento()) || defunto.getDataMorte() == defunto.getPessoa().getNascimento()) {
-            return true;
-        }
-        if (defunto.getDataMorte().after(defunto.getDataEntrada()) || defunto.getDataMorte() == defunto.getDataEntrada()){
-            return true;
-        }
-        if (defunto.getDataMorte().before(defunto.getDataSaida()) || defunto.getDataMorte() == defunto.getDataSaida()){
-            return true;
-        }
+        mensagem.setSummary("Datas inválidas");
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
         return false;
     }
 
+    public void buscar() {
+        defuntos = dao.listarTodos();
+    }
 
-//    Data de nascimento < = data de morte
-//    Data de nacimento < = data de Entrada
-//    Data de nascimento < = data de saída
-//
-
-//    Data de saída >= data de nascimento
-//    Data de saída >= data de Entrada
-//    Data de saída >= data de saída
-
-
-public void buscar(){
-        defuntos=dao.listarTodos();
-        }
-
-public Defunto getDefunto(){
+    public Defunto getDefunto() {
         return defunto;
-        }
+    }
 
-public void setDefunto(Defunto defunto){
-        this.defunto=defunto;
-        }
+    public void setDefunto(Defunto defunto) {
+        this.defunto = defunto;
+    }
 
-public List<Defunto> getDefuntos(){
+    public List<Defunto> getDefuntos() {
         return defuntos;
-        }
+    }
 
-public void setDefuntos(List<Defunto> defuntos){
-        this.defuntos=defuntos;
-        }
+    public void setDefuntos(List<Defunto> defuntos) {
+        this.defuntos = defuntos;
+    }
 
-        }
+}

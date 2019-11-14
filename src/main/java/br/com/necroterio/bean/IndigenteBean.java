@@ -16,7 +16,6 @@ import java.util.List;
 @ViewScoped
 @ManagedBean
 public class IndigenteBean implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private Indigente indigente;
     private List<Indigente> indigentes;

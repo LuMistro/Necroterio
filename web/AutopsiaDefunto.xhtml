@@ -1,0 +1,91 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="logo">Autópsia</ui:define>
+    <ui:define name="titulo">Autópsia</ui:define>
+
+    <ui:define name="conteudo">
+        <h:form id="campos">
+            <div class="ui-fluid">
+                <p:growl id="msgs" showDetail="true"/>
+
+                <p:tabView>
+                    <p:tab title="Dados da Autópsia">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+
+                            <p:outputLabel value="CPF: " for="cpf"/>
+                            <p:inputMask id="cpf" required="true"
+                                         requiredMessage="CPF deve ser preenchido"
+                                         placeholder="Informe o CPF"
+                                         mask="999.999.999-99"
+                                         value="#{autopsiaBean.autopsia.defunto.pessoa.cpf}"/>
+
+                            <p:outputLabel value="Data da Autópsia:" for="dataAutopsia"/>
+                            <p:calendar id="dataAutopsia"
+                                        pattern="dd/MM/yyyy"
+                                        placeholder="Informe a data de execução da Autópsia"
+                                        mask="99/99/9999"
+                                        value="#{autopsiaBean.autopsia.dataAutopsia}"/>
+
+                            <p:outputLabel value="Médico: " for="medico"/>
+                            <p:inputText id="medico" value="#{autopsiaBean.autopsia.medico.nome}"/>
+
+                            <p:outputLabel value="Causa da Morte: " for="causaMorte"/>
+                            <p:inputText id="causaMorte" value="#{autopsiaBean.autopsia.causaMorte}"/>
+
+                        </p:panelGrid>
+                    </p:tab>
+
+
+                    <p:tab title="Autópsia">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+
+                            <p:outputLabel value="Parte do corpo: " for="ptCorpo"/>
+                            <p:selectOneMenu id="ptCorpo"
+                                             value="#{autopsiaBean.areaAfetada.regiao}"
+                                             filter="true" filterMatchMode="startsWith">
+
+                                <f:selectItem itemLabel="Selecione uma área ..."
+                                              noSelectionOption="true"/>
+
+                                <f:selectItems var="e"
+                                               value="#{autopsiaBean.regiaos}"
+                                               itemLabel="#{e.descricao}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Observação " for="obs"/>
+                            <p:inputTextarea id="obs" rows="6" cols="33"
+                                             value="#{autopsiaBean.areaAfetada.observacao}"/>
+
+
+                            <p:commandButton value="Adicionar na Autópsia" update="ptCorpo obs" icon="fa fa-plus"
+                                             action="#{autopsiaBean.adicionarLista}"/>
+
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:spacer/>
+                </p:tabView>
+            </div>
+
+
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton value="Salvar" update="campos" icon="fa fa-save"
+                                     action="#{autopsiaBean.salvar}"/>
+
+                    <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                                     process="@this"
+                                     action="#{autopsiaBean.limpar}"/>
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+    </ui:define>
+</ui:composition>
