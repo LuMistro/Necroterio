@@ -143,7 +143,9 @@
                         <h:outputText value="#{d.autopsia.causaMorte}"/>
 
                         <h:outputText value="Autópsia"/>
-                        <p:button outcome="AutopsiaIndigente.xhtml" type="button" value="Ir até Autópsia"/>
+                        <p:button outcome="AutopsiaIndigente.xhtml" type="button" value="Ir até Autópsia">
+                            <f:param name="identificador" value="#{d.identificador}"/>
+                        </p:button>
 
 
                     </p:panelGrid>

@@ -12,7 +12,12 @@
 
     <ui:define name="conteudo">
 
-        <p:barChart model="#{graficosBean.barModel}" style="width: 100%; height: 500px;"/>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-e">
+                <p:barChart model="#{graficosBean.barModel}" style="width: 100%; height: 500px;"/>
+            </div>
+        </div>
+
 
     </ui:define>
 

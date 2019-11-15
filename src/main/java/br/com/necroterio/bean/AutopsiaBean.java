@@ -24,6 +24,7 @@ public class AutopsiaBean implements Serializable {
     private Regiao[] regiaos;
     private AreasAfetadas areaAfetada;
     private List<AreasAfetadas> listaDeAreasAfetadas;
+    private String identificador;
 
 
     @PostConstruct
@@ -67,12 +68,16 @@ public class AutopsiaBean implements Serializable {
 
     }
 
+    public void buscarCoisas(){
+        System.out.println(identificador);
+    }
 
     public void buscar() {
         autopsias = dao.listarTodos();
     }
 
     public void adicionarLista() {
+        System.out.println("aaaaa");
         listaDeAreasAfetadas.add(areaAfetada);
     }
 
@@ -114,5 +119,13 @@ public class AutopsiaBean implements Serializable {
 
     public void setAreaAfetada(AreasAfetadas areaAfetada) {
         this.areaAfetada = areaAfetada;
+    }
+
+    public String getIdentificador() {
+            return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 }

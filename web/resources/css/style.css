@@ -57,10 +57,19 @@ html, body {
     color: whitesmoke;
 }
 
-.endereco input, .campos input, .ui-selectonemenu.ui-selectonemenu {
+.endereco input, .campos input {
     width: 100%;
 }
 
 #camposAutopsia {
     color: yellow;
+}
+
+.bandeira-idioma {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.ui-menu.ui-menubar>.ui-menu-list>.ui-menuitem.ui-menubar-options {
+    display: flex;
 }

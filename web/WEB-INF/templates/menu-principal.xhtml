@@ -6,15 +6,25 @@
 
 <h:form>
     <p:menubar>
-        <p:submenu label="Cadastro" icon="fa fa-floppy-o">
-            <p:menuitem value="Funcionário" url="http://localhost:8080/Necroterio/Funcionario.xhtml" icon="fa fa-male"/>
-            <p:menuitem value="Médico" url="http://localhost:8080/Necroterio/Medico.xhtml" icon="fa fa-stethoscope"/>
-            <p:menuitem value="Defunto" url="http://localhost:8080/Necroterio/Defunto.xhtml" icon="fa fa-bed"/>
+        <p:submenu label="#{msg['menu.cadastro']}" icon="fa fa-floppy-o">
+            <p:menuitem value="Funcionário" outcome="Funcionario" icon="fa fa-male"/>
+            <p:menuitem value="Médico" outcome="Medico" icon="fa fa-stethoscope"/>
+            <p:menuitem value="Defunto" outcome="Defunto" icon="fa fa-bed"/>
         </p:submenu>
 
         <f:facet name="options">
+            <h:commandButton styleClass="bandeira-idioma"
+                             image="resources/imagens/brazil-flag.png">
+                <f:setPropertyActionListener value="pt" target="#{idiomaBean.idiomaSelecionado}"/>
+            </h:commandButton>
 
-            <p:button outcome="index.xhtml" type="button" value="Home" icon="fa fa-home"/>
+            <h:commandButton styleClass="bandeira-idioma"
+                             image="resources/imagens/england-flag.png">
+                <f:setPropertyActionListener value="en" target="#{idiomaBean.idiomaSelecionado}"/>
+            </h:commandButton>
+
+
+            <p:button outcome="index" type="button" value="Home" icon="fa fa-home"/>
 
         </f:facet>
     </p:menubar>
