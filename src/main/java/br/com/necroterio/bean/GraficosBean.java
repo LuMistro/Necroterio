@@ -51,7 +51,6 @@ public class GraficosBean implements Serializable {
         List<String> rotulos = new ArrayList<>();
 
         for (MortosPorDiaDTO dto : mortosPorDiaDTOS) {
-            rotulos.add(dto.getDefunto());
             valores.add(dto.getQuantidade());
         }
 
@@ -83,16 +82,16 @@ public class GraficosBean implements Serializable {
 
         data.addChartDataSet(barDataSet);
 
-//        List<String> labels = new ArrayList<>();
-//        labels.add("Segunda-Feira");
-//        labels.add("Terça-Feira");
-//        labels.add("Quarta-Feira");
-//        labels.add("Quinta-Feira");
-//        labels.add("Sexta-Feira");
-//        labels.add("Sábado");
-//        labels.add("Domingo");
-//        data.setLabels(labels);
-//        barModel.setData(data);
+        List<String> labels = new ArrayList<>();
+        labels.add("Segunda-Feira");
+        labels.add("Terça-Feira");
+        labels.add("Quarta-Feira");
+        labels.add("Quinta-Feira");
+        labels.add("Sexta-Feira");
+        labels.add("Sábado");
+        labels.add("Domingo");
+        data.setLabels(labels);
+        barModel.setData(data);
 
         //Options
         BarChartOptions options = new BarChartOptions();
