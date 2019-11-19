@@ -15,20 +15,26 @@
         <f:facet name="options">
             <p:commandButton styleClass="bandeira-idioma"
                              onclick="PF('dlg1').show();"
-            icon="">
+                             icon="fa fa-comment-o"
+                             value="Português">
                 <f:setPropertyActionListener value="pt" target="#{idiomaBean.idiomaSelecionado}"/>
             </p:commandButton>
 
-            <h:commandButton styleClass="bandeira-idioma"
-                             onclick="PF('dlg1').show();">
-                <f:setPropertyActionListener value="en" target="#{idiomaBean.idiomaSelecionado}"/>
-            </h:commandButton>
+            <p:commandButton styleClass="bandeira-idioma"
+                             onclick="PF('dlg1').show();"
+                             icon="fa fa-comment-o"
+                             value="Inglês">
+                <f:setPropertyActionListener value="pt" target="#{idiomaBean.idiomaSelecionado}"/>
+            </p:commandButton>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="dlg1">
                 <h:form>
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"
-                                     icon="pi pi-check"/>
+                                     icon="pi pi-check">
+
+                    </p:commandButton>
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+
                 </h:form>
             </p:confirmDialog>
 
