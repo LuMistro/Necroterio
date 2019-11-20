@@ -25,13 +25,10 @@ import java.util.List;
 @ManagedBean
 public class GraficosBean implements Serializable {
 
-    private DefuntoDao dao;
     private List<MortosPorDiaDTO> mortosPorDiaDTOS;
-
     private BarChartModel barModel;
 
     public GraficosBean() {
-        dao = new DefuntoDao();
         mortosPorDiaDTOS = new ArrayList<>();
     }
 
@@ -51,12 +48,21 @@ public class GraficosBean implements Serializable {
         List<String> rotulos = new ArrayList<>();
 
         for (MortosPorDiaDTO dto : mortosPorDiaDTOS) {
-            valores.add(dto.getQuantidade());
+            valores.add(dto.pesquisarDiaSemana());
         }
 
         barDataSet.setData(valores);
         data.setLabels(rotulos);
 
+        List<String> labels = new ArrayList<>();
+        labels.add("Segunda-Feira");
+        labels.add("Terça-Feira");
+        labels.add("Quarta-Feira");
+        labels.add("Quinta-Feira");
+        labels.add("Sexta-Feira");
+        labels.add("Sábado");
+        labels.add("Domingo");
+        data.setLabels(labels);
         barModel.setData(data);
 
         List<String> bgColor = new ArrayList<>();
@@ -82,16 +88,6 @@ public class GraficosBean implements Serializable {
 
         data.addChartDataSet(barDataSet);
 
-        List<String> labels = new ArrayList<>();
-        labels.add("Segunda-Feira");
-        labels.add("Terça-Feira");
-        labels.add("Quarta-Feira");
-        labels.add("Quinta-Feira");
-        labels.add("Sexta-Feira");
-        labels.add("Sábado");
-        labels.add("Domingo");
-        data.setLabels(labels);
-        barModel.setData(data);
 
         //Options
         BarChartOptions options = new BarChartOptions();
@@ -123,5 +119,13 @@ public class GraficosBean implements Serializable {
 
     public void setBarModel(BarChartModel barModel) {
         this.barModel = barModel;
+    }
+
+    public List<MortosPorDiaDTO> getMortosPorDiaDTOS() {
+        return mortosPorDiaDTOS;
+    }
+
+    public void setMortosPorDiaDTOS(List<MortosPorDiaDTO> mortosPorDiaDTOS) {
+        this.mortosPorDiaDTOS = mortosPorDiaDTOS;
     }
 }

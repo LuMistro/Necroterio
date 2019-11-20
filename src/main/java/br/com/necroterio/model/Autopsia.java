@@ -19,6 +19,8 @@ public class Autopsia {
     private String causaMorte;
     @OneToOne
     private Defunto defunto;
+    @OneToOne
+    private Indigente indigente;
 
     public Integer getId() {
         return id;
@@ -68,12 +70,20 @@ public class Autopsia {
         this.defunto = defunto;
     }
 
+    public Indigente getIndigente() {
+        return indigente;
+    }
+
+    public void setIndigente(Indigente indigente) {
+        this.indigente = indigente;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Autopsia autopsia = (Autopsia) o;
-        return id == autopsia.id;
+        return Objects.equals(id, autopsia.id);
     }
 
     @Override

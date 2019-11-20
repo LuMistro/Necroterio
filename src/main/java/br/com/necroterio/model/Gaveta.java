@@ -1,6 +1,7 @@
 package br.com.necroterio.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Gaveta {
@@ -56,24 +57,15 @@ public class Gaveta {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gaveta gaveta = (Gaveta) o;
+        return id == gaveta.id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Gaveta other = (Gaveta) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

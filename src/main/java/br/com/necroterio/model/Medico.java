@@ -3,6 +3,7 @@ package br.com.necroterio.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Medico extends Pessoa {
@@ -41,24 +42,16 @@ public class Medico extends Pessoa {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + id;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Medico medico = (Medico) o;
+        return id == medico.id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Medico other = (Medico) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id);
     }
 }

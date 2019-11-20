@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo">
         <f:metadata>
-            <f:viewParam name="identificador" value="#{autopsiaBean.identificador}"/>
+            <f:viewParam name="id" value="#{autopsiaBean.idIndigente}"/>
             <f:viewAction action="#{autopsiaBean.buscarCoisas}"/>
         </f:metadata>
         <h:form id="campos">
@@ -23,22 +23,31 @@
                                      columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
                                      styleClass="ui-panelgrid-blank">
 
-                            <p:outputLabel value="CPF: " for="cpf"/>
-                            <p:inputMask id="cpf" required="true"
-                                         requiredMessage="CPF deve ser preenchido"
-                                         placeholder="Informe o CPF"
-                                         mask="999.999.999-99"
-                                         value="#{autopsiaBean.autopsia.defunto.pessoa.cpf}"/>
+                            <p:outputLabel value="Identificador: " for="identificador"/>
+                            <p:inputText id="identificador"
+                                         placeholder="#{autopsiaBean.indigente.identificador}"
+                                         disabled="true"/>
 
                             <p:outputLabel value="Data da Autópsia:" for="dataAutopsia"/>
-                            <p:calendar id="dataAutopsia"
+                            <p:calendar id="dataAutopsia" required="true"
                                         pattern="dd/MM/yyyy"
-                                        placeholder="Informe a data de execução da Autópsia"
                                         mask="99/99/9999"
+                                        placeholder="#{autopsiaBean.autopsia.dataAutopsia}"
                                         value="#{autopsiaBean.autopsia.dataAutopsia}"/>
 
                             <p:outputLabel value="Médico: " for="medico"/>
-                            <p:inputText id="medico" value="#{autopsiaBean.autopsia.medico.nome}"/>
+                            <p:selectOneMenu id="medico"
+                                             converter="medicoConverter"
+                                             value="#{autopsiaBean.autopsia.medico}"
+                                             filter="true" filterMatchMode="startsWith">
+
+                                <f:selectItem itemLabel="#{autopsiaBean.autopsia.medico}"
+                                              noSelectionOption="false"/>
+
+                                <f:selectItems var="m"
+                                               value="#{autopsiaBean.listaMedicos}"
+                                               itemLabel="#{m.nome}"/>
+                            </p:selectOneMenu>
 
                             <p:outputLabel value="Causa da Morte: " for="causaMorte"/>
                             <p:inputText id="causaMorte" value="#{autopsiaBean.autopsia.causaMorte}"/>
@@ -70,7 +79,7 @@
                                              value="#{autopsiaBean.areaAfetada.observacao}"/>
 
 
-                            <p:commandButton value="Adicionar na Autópsia" update="ptCorpo obs" icon="fa fa-plus"
+                            <p:commandButton value="Adicionar na Autópsia" update="ptCorpo obs tabela" icon="fa fa-plus"
                                              action="#{autopsiaBean.adicionarLista}"/>
 
                         </p:panelGrid>
@@ -82,14 +91,37 @@
 
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandButton value="Salvar" update="campos" icon="fa fa-save"
+                    <p:commandButton value="Salvar" update="tabela" icon="fa fa-save"
                                      action="#{autopsiaBean.salvar}"/>
-
-                    <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
-                                     process="@this"
-                                     action="#{autopsiaBean.limpar}"/>
                 </f:facet>
             </p:toolbar>
+        </h:form>
+        <h:form id="tabela">
+            <p:dataTable var="a" value="#{autopsiaBean.listaDeAreasAfetadas}">
+
+                <p:column headerText="Região do corpo" filterBy="#{a.regiao.descricao}" sortBy="#{a.regiao.descricao}">
+                    <h:outputText value="#{a.regiao.descricao}"/>
+                </p:column>
+
+                <p:column headerText="Observação" filterBy="#{a.observacao}" sortBy="#{a.observacao}">
+                    <h:outputText value="#{a.observacao}"/>
+                </p:column>
+
+                <p:column headerClass="colunaAcoes">
+                    <p:commandButton icon="fa fa-pencil"
+                                     update="tabela">
+                        <f:setPropertyActionListener value="#{d}"
+                                                     target="#{autopsiaBean.listaDeAreasAfetadas}"/>
+                    </p:commandButton>
+
+                    <p:commandButton icon="fa fa-trash"
+                                     update="tabela"
+                                     action="#{autopsiaBean.excluir}">
+                        <f:setPropertyActionListener value="#{d}"
+                                                     target="#{autopsiaBean.listaDeAreasAfetadas}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
         </h:form>
     </ui:define>
 </ui:composition>

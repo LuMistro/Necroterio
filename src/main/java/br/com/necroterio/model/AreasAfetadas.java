@@ -4,6 +4,7 @@ package br.com.necroterio.model;
 import br.com.necroterio.model.enums.Regiao;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -51,24 +52,15 @@ public class AreasAfetadas {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AreasAfetadas that = (AreasAfetadas) o;
+        return id == that.id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        AreasAfetadas other = (AreasAfetadas) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

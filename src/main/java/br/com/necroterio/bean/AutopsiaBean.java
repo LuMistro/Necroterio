@@ -1,9 +1,10 @@
 package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.AutopsiaDao;
+import br.com.necroterio.dao.IndigenteDao;
+import br.com.necroterio.dao.MedicoDao;
 import br.com.necroterio.model.*;
 import br.com.necroterio.model.enums.Regiao;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,13 +25,18 @@ public class AutopsiaBean implements Serializable {
     private Regiao[] regiaos;
     private AreasAfetadas areaAfetada;
     private List<AreasAfetadas> listaDeAreasAfetadas;
-    private String identificador;
-
+    private Indigente indigente;
+    private IndigenteDao indigenteDao;
+    private String idIndigente;
+    private List<Medico> listaMedicos;
+    private MedicoDao medicoDao;
 
     @PostConstruct
     public void init() {
         dao = new AutopsiaDao();
-
+        indigenteDao = new IndigenteDao();
+        listaMedicos = new ArrayList<>();
+        medicoDao = new MedicoDao();
         limpar();
         buscar();
     }
@@ -54,7 +60,6 @@ public class AutopsiaBean implements Serializable {
         FacesMessage mensagem = new FacesMessage();
         mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
         mensagem.setSummary("Autópsia excluída com sucesso!");
-
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
     }
 
@@ -64,12 +69,15 @@ public class AutopsiaBean implements Serializable {
         autopsia.setMedico(new Medico());
         autopsia.setDefunto(new Defunto());
         autopsia.getDefunto().setPessoa(new Pessoa());
+        autopsia.setIndigente(new Indigente());
         listaDeAreasAfetadas = new ArrayList<>();
-
+        autopsia.setMedico(new Medico());
     }
 
-    public void buscarCoisas(){
-        System.out.println(identificador);
+    public void buscarCoisas() {
+        indigente = indigenteDao.buscarPorId(new Integer(idIndigente));
+        autopsia = indigente.getAutopsia();
+
     }
 
     public void buscar() {
@@ -77,8 +85,10 @@ public class AutopsiaBean implements Serializable {
     }
 
     public void adicionarLista() {
-        System.out.println("aaaaa");
-        listaDeAreasAfetadas.add(areaAfetada);
+        AreasAfetadas novaArea = areaAfetada;
+        listaDeAreasAfetadas.add(novaArea);
+        areaAfetada = new AreasAfetadas();
+
     }
 
     public Autopsia getAutopsia() {
@@ -121,11 +131,35 @@ public class AutopsiaBean implements Serializable {
         this.areaAfetada = areaAfetada;
     }
 
-    public String getIdentificador() {
-            return identificador;
+    public String getIdIndigente() {
+        return idIndigente;
     }
 
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
+    public void setIdIndigente(String idIndigente) {
+        this.idIndigente = idIndigente;
+    }
+
+    public Indigente getIndigente() {
+        return indigente;
+    }
+
+    public void setIndigente(Indigente indigente) {
+        this.indigente = indigente;
+    }
+
+    public List<AreasAfetadas> getListaDeAreasAfetadas() {
+        return listaDeAreasAfetadas;
+    }
+
+    public void setListaDeAreasAfetadas(List<AreasAfetadas> listaDeAreasAfetadas) {
+        this.listaDeAreasAfetadas = listaDeAreasAfetadas;
+    }
+
+    public List<Medico> getListaMedicos() {
+        return medicoDao.listarTodos();
+    }
+
+    public void setListaMedicos(List<Medico> listaMedicos) {
+        this.listaMedicos = listaMedicos;
     }
 }

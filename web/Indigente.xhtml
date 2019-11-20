@@ -90,6 +90,11 @@
                 <p:column style="width:16px">
                     <p:rowToggler/>
                 </p:column>
+
+                <p:column headerText="ID" filterBy="#{d.id}" sortBy="#{d.id}">
+                    <h:outputText value="#{d.id}"/>
+                </p:column>
+
                 <p:column headerText="Identificador" filterBy="#{d.identificador}" sortBy="#{d.identificador}">
                     <h:outputText value="#{d.identificador}"/>
                 </p:column>
@@ -144,10 +149,8 @@
 
                         <h:outputText value="Autópsia"/>
                         <p:button outcome="AutopsiaIndigente.xhtml" type="button" value="Ir até Autópsia">
-                            <f:param name="identificador" value="#{d.identificador}"/>
+                            <f:param name="id" value="#{d.id}"/>
                         </p:button>
-
-
                     </p:panelGrid>
                 </p:rowExpansion>
             </p:dataTable>

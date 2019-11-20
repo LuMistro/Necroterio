@@ -46,7 +46,7 @@ public class Contato {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contato contato = (Contato) o;
-        return id.equals(contato.id);
+        return Objects.equals(id, contato.id);
     }
 
     @Override

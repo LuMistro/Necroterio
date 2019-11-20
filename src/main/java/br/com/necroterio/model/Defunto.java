@@ -3,6 +3,7 @@ package br.com.necroterio.model;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class Defunto {
@@ -90,25 +91,17 @@ public class Defunto {
         this.pessoa = pessoa;
     }
 
+
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + id;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Defunto defunto = (Defunto) o;
+        return Objects.equals(id, defunto.id);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Defunto other = (Defunto) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

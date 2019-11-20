@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Pessoa {
@@ -74,24 +75,15 @@ public class Pessoa {
 
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(id, pessoa.id);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Pessoa other = (Pessoa) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
