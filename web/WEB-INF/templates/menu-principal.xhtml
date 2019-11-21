@@ -7,9 +7,9 @@
 <h:form>
     <p:menubar>
         <p:submenu label="#{msg['menu.cadastro']}" icon="fa fa-floppy-o">
-            <p:menuitem value="Funcionário" outcome="Funcionario" icon="fa fa-male"/>
-            <p:menuitem value="Médico" outcome="Medico" icon="fa fa-stethoscope"/>
-            <p:menuitem value="Defunto" outcome="Defunto" icon="fa fa-bed"/>
+            <p:menuitem value="Funcionário" outcome="/secured/Funcionario" icon="fa fa-male"/>
+            <p:menuitem value="Médico" outcome="/secured/Medico" icon="fa fa-stethoscope"/>
+            <p:menuitem value="Defunto" outcome="/secured/Defunto" icon="fa fa-bed"/>
         </p:submenu>
 
         <f:facet name="options">
@@ -39,6 +39,7 @@
             </p:confirmDialog>
 
             <p:button outcome="index" type="button" value="Home" icon="fa fa-home"/>
+            <p:commandButton value="Sair" action="#{loginBean.logout}"/>
         </f:facet>
     </p:menubar>
 </h:form>

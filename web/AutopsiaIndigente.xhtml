@@ -79,7 +79,7 @@
                                              value="#{autopsiaBean.areaAfetada.observacao}"/>
 
 
-                            <p:commandButton value="Adicionar na Autópsia" update="ptCorpo obs tabela" icon="fa fa-plus"
+                            <p:commandButton value="Adicionar na Autópsia" update="ptCorpo obs" icon="fa fa-plus"
                                              action="#{autopsiaBean.adicionarLista}"/>
 
                         </p:panelGrid>
@@ -91,7 +91,7 @@
 
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandButton value="Salvar" update="tabela" icon="fa fa-save"
+                    <p:commandButton value="Salvar" update="ptCorpo obs tabela" icon="fa fa-save"
                                      action="#{autopsiaBean.salvar}"/>
                 </f:facet>
             </p:toolbar>
