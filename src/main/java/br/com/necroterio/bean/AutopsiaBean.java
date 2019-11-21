@@ -1,5 +1,6 @@
 package br.com.necroterio.bean;
 
+import br.com.necroterio.dao.AreasAfetadasDao;
 import br.com.necroterio.dao.AutopsiaDao;
 import br.com.necroterio.dao.IndigenteDao;
 import br.com.necroterio.dao.MedicoDao;
@@ -24,6 +25,7 @@ public class AutopsiaBean implements Serializable {
     private AutopsiaDao dao;
     private Regiao[] regiaos;
     private AreasAfetadas areaAfetada;
+    private AreasAfetadasDao areasAfetadasDao;
     private List<AreasAfetadas> listaDeAreasAfetadas;
     private Indigente indigente;
     private IndigenteDao indigenteDao;
@@ -37,6 +39,7 @@ public class AutopsiaBean implements Serializable {
         indigenteDao = new IndigenteDao();
         listaMedicos = new ArrayList<>();
         medicoDao = new MedicoDao();
+        areasAfetadasDao = new AreasAfetadasDao();
         limpar();
         buscar();
     }
@@ -47,6 +50,11 @@ public class AutopsiaBean implements Serializable {
         } else {
             dao.editar(autopsia);
         }
+
+        FacesMessage mensagem = new FacesMessage();
+        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+        mensagem.setSummary("Autópsia salva com sucesso!");
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
 
         limpar();
         buscar();
@@ -87,7 +95,10 @@ public class AutopsiaBean implements Serializable {
     public void adicionarLista() {
         AreasAfetadas novaArea = areaAfetada;
         listaDeAreasAfetadas.add(novaArea);
+        novaArea.setAutopsia(autopsia);
+        areasAfetadasDao.salvar(novaArea);
         areaAfetada = new AreasAfetadas();
+
 
     }
 

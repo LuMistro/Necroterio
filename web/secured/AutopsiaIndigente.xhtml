@@ -26,7 +26,7 @@
                             <p:outputLabel value="Identificador: " for="identificador"/>
                             <p:inputText id="identificador"
                                          placeholder="#{autopsiaBean.indigente.identificador}"
-                                         disabled="true"/>
+                                         readonly="true"/>
 
                             <p:outputLabel value="Data da Autópsia:" for="dataAutopsia"/>
                             <p:calendar id="dataAutopsia" required="true"
@@ -37,12 +37,10 @@
 
                             <p:outputLabel value="Médico: " for="medico"/>
                             <p:selectOneMenu id="medico"
-                                             converter="medicoConverter"
                                              value="#{autopsiaBean.autopsia.medico}"
                                              filter="true" filterMatchMode="startsWith">
 
-                                <f:selectItem itemLabel="#{autopsiaBean.autopsia.medico}"
-                                              noSelectionOption="false"/>
+                                <f:selectItem itemLabel="#{autopsiaBean.autopsia.medico.nome}"/>
 
                                 <f:selectItems var="m"
                                                value="#{autopsiaBean.listaMedicos}"
@@ -50,11 +48,12 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Causa da Morte: " for="causaMorte"/>
-                            <p:inputText id="causaMorte" value="#{autopsiaBean.autopsia.causaMorte}"/>
+                            <p:inputText id="causaMorte"
+                                         placeholder="#{autopsiaBean.autopsia.causaMorte}"
+                                         value="#{autopsiaBean.autopsia.causaMorte}"/>
 
                         </p:panelGrid>
                     </p:tab>
-
 
                     <p:tab title="Autópsia">
                         <p:panelGrid columns="2" layout="grid"
@@ -79,7 +78,7 @@
                                              value="#{autopsiaBean.areaAfetada.observacao}"/>
 
 
-                            <p:commandButton value="Adicionar na Autópsia" update="ptCorpo obs" icon="fa fa-plus"
+                            <p:commandButton value="Adicionar na Autópsia" update="tabela" icon="fa fa-plus"
                                              action="#{autopsiaBean.adicionarLista}"/>
 
                         </p:panelGrid>
@@ -88,14 +87,16 @@
                 </p:tabView>
             </div>
 
-
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandButton value="Salvar" update="ptCorpo obs tabela" icon="fa fa-save"
+                    <p:commandButton value="Salvar" update="msgs" icon="fa fa-save"
                                      action="#{autopsiaBean.salvar}"/>
                 </f:facet>
             </p:toolbar>
+
         </h:form>
+
+
         <h:form id="tabela">
             <p:dataTable var="a" value="#{autopsiaBean.listaDeAreasAfetadas}">
 

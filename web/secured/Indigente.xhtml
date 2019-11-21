@@ -12,7 +12,7 @@
 
         <h:form id="campos">
             <div class="ui-fluid">
-                <p:growl id="msgs" showDetail="true"/>
+                <p:growl id="mesages" showDetail="true" sticky="true"/>
 
                 <h1 class="subtitulo" style="margin-top:0">Ficha de cadastro</h1>
                 <p:tabView>
@@ -148,7 +148,7 @@
                         <h:outputText value="#{d.autopsia.causaMorte}"/>
 
                         <h:outputText value="Autópsia"/>
-                        <p:button outcome="AutopsiaIndigente.xhtml" type="button" value="Ir até Autópsia">
+                        <p:button outcome="/secured/AutopsiaIndigente.xhtml" type="button" value="Ir até Autópsia">
                             <f:param name="id" value="#{d.id}"/>
                         </p:button>
                     </p:panelGrid>
