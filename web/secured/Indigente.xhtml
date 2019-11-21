@@ -53,13 +53,13 @@
 
                             <p:outputLabel value="Gaveta: " for="gaveta"/>
                             <p:selectOneMenu id="gaveta"
-                                             value="#{defuntoBean.defunto.gaveta}"
+                                             value="#{defuntoBean.defunto.gavetaEnum}"
                                              filter="true" filterMatchMode="startsWith">
 
                                 <f:selectItem itemLabel="Selecione uma gaveta ..."
                                               noSelectionOption="true"/>
                                 <f:selectItems var="g"
-                                               value="#{indigenteBean.indigente.gaveta.nome}"
+                                               value="#{indigenteBean.gavetas}"
                                                itemLabel="#{g.descricao}"/>
                             </p:selectOneMenu>
 
@@ -142,7 +142,7 @@
                         </h:outputText>
 
                         <h:outputText value="Gaveta:"/>
-                        <h:outputText value="#{d.gaveta}"/>
+                        <h:outputText value="#{d.gavetaEnums.descricao}"/>
 
                         <h:outputText value="Causa da morte:"/>
                         <h:outputText value="#{d.autopsia.causaMorte}"/>

@@ -1,5 +1,7 @@
 package br.com.necroterio.model;
 
+import br.com.necroterio.model.enums.GavetaEnum;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +21,8 @@ public class Defunto {
     private Date dataMorte;
     @OneToOne
     private Gaveta gaveta;
+    @Enumerated(EnumType.STRING)
+    private GavetaEnum gavetaEnum;
     @OneToOne
     private Autopsia autopsia;
     @OneToOne(cascade = CascadeType.ALL)
@@ -91,6 +95,13 @@ public class Defunto {
         this.pessoa = pessoa;
     }
 
+    public GavetaEnum getGavetaEnum() {
+        return gavetaEnum;
+    }
+
+    public void setGavetaEnum(GavetaEnum gavetaEnum) {
+        this.gavetaEnum = gavetaEnum;
+    }
 
     @Override
     public boolean equals(Object o) {

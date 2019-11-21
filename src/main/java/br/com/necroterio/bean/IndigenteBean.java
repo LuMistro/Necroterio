@@ -4,6 +4,7 @@ import br.com.necroterio.dao.IndigenteDao;
 import br.com.necroterio.model.Autopsia;
 import br.com.necroterio.model.Gaveta;
 import br.com.necroterio.model.Indigente;
+import br.com.necroterio.model.enums.GavetaEnum;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,6 +21,7 @@ public class IndigenteBean implements Serializable {
     private Indigente indigente;
     private List<Indigente> indigentes;
     private IndigenteDao dao;
+    private GavetaEnum[] gavetas;
 
     @PostConstruct
     public void init() {
@@ -77,4 +79,11 @@ public class IndigenteBean implements Serializable {
         this.indigentes = indigentes;
     }
 
+    public GavetaEnum[] getGavetas() {
+        return GavetaEnum.values();
+    }
+
+    public void setGavetas(GavetaEnum[] gavetas) {
+        this.gavetas = gavetas;
+    }
 }

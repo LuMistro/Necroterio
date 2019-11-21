@@ -9,7 +9,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value = "medicoConverter", forClass = Medico.class)
+@FacesConverter(forClass = Medico.class)
 public class MedicoConverter implements Converter {
 
     private MedicoDao dao;

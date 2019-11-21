@@ -1,8 +1,7 @@
 package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.DefuntoDao;
-import br.com.necroterio.dto.MortosPorDiaDTO;
-import org.primefaces.event.ItemSelectEvent;
+import br.com.necroterio.model.Defunto;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -20,16 +19,19 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @ManagedBean
 public class GraficosBean implements Serializable {
 
-    private List<MortosPorDiaDTO> mortosPorDiaDTOS;
     private BarChartModel barModel;
+    private DefuntoDao defuntoDao;
+    private List<Integer> diasDaSemana;
 
     public GraficosBean() {
-        mortosPorDiaDTOS = new ArrayList<>();
+        defuntoDao = new DefuntoDao();
+        diasDaSemana = new ArrayList<>();
     }
 
     @PostConstruct
@@ -45,14 +47,17 @@ public class GraficosBean implements Serializable {
         barDataSet.setLabel("Quantidade de corpos que chegaram no último mês");
 
         List<Number> valores = new ArrayList<>();
-        List<String> rotulos = new ArrayList<>();
 
-        for (MortosPorDiaDTO dto : mortosPorDiaDTOS) {
-            valores.add(dto.pesquisarDiaSemana());
+
+        List<Integer> inteiros = pesquisarDiaSemana();
+
+        for (int i = 0; i < inteiros.size(); i++) {
+            Integer integer =  inteiros.get(i);
+            valores.add((Number) integer);
+
         }
 
         barDataSet.setData(valores);
-        data.setLabels(rotulos);
 
         List<String> labels = new ArrayList<>();
         labels.add("Segunda-Feira");
@@ -121,11 +126,54 @@ public class GraficosBean implements Serializable {
         this.barModel = barModel;
     }
 
-    public List<MortosPorDiaDTO> getMortosPorDiaDTOS() {
-        return mortosPorDiaDTOS;
-    }
+    public List<Integer> pesquisarDiaSemana() {
+        diasDaSemana.add(0 , 0);
+        diasDaSemana.add(1 , 0);
+        diasDaSemana.add(2 , 0);
+        diasDaSemana.add(3 , 0);
+        diasDaSemana.add(4 , 0);
+        diasDaSemana.add(5 , 0);
+        diasDaSemana.add(6 , 0);
 
-    public void setMortosPorDiaDTOS(List<MortosPorDiaDTO> mortosPorDiaDTOS) {
-        this.mortosPorDiaDTOS = mortosPorDiaDTOS;
+
+        List<Defunto> defuntos = defuntoDao.listarTodos();
+        Calendar cal = Calendar.getInstance();
+        for (int i = 0; i < defuntos.size(); i++) {
+            cal.setTime(defuntos.get(i).getDataEntrada());
+            int day = cal.get(Calendar.DAY_OF_WEEK);
+            switch (day) {
+                case Calendar.SATURDAY:
+                    diasDaSemana.set(5, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de sábado
+                    break;
+                case Calendar.SUNDAY:
+                    diasDaSemana.set(6, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de domingo
+                    break;
+                case Calendar.MONDAY:
+                    diasDaSemana.set(0, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de segunda
+                    break;
+                case Calendar.TUESDAY:
+                    diasDaSemana.set(1, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de terça
+                    break;
+                case Calendar.WEDNESDAY:
+                    diasDaSemana.set(2, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de quarta
+                    break;
+                case Calendar.THURSDAY:
+                    diasDaSemana.set(3, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de quinta
+                    break;
+                case Calendar.FRIDAY:
+                    diasDaSemana.set(4, diasDaSemana.get(0) + 1);
+                    //Adicionar na lista de sexta
+                    break;
+                default:
+                    break;
+            }
+        }
+        return diasDaSemana;
     }
 }

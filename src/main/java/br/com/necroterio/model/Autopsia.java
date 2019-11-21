@@ -1,5 +1,7 @@
 package br.com.necroterio.model;
 
+import br.com.necroterio.model.enums.MedicoEnum;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,8 @@ public class Autopsia {
     private Date dataAutopsia;
     @ManyToOne
     private Medico medico;
+    @Enumerated(EnumType.STRING)
+    private MedicoEnum medicoEnum;
     @OneToMany(mappedBy = "autopsia")
     private List<AreasAfetadas> areasAfetadas;
     private String causaMorte;
@@ -76,6 +80,14 @@ public class Autopsia {
 
     public void setIndigente(Indigente indigente) {
         this.indigente = indigente;
+    }
+
+    public MedicoEnum getMedicoEnum() {
+        return medicoEnum;
+    }
+
+    public void setMedicoEnum(MedicoEnum medicoEnum) {
+        this.medicoEnum = medicoEnum;
     }
 
     @Override

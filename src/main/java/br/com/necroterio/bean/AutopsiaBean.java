@@ -5,6 +5,7 @@ import br.com.necroterio.dao.AutopsiaDao;
 import br.com.necroterio.dao.IndigenteDao;
 import br.com.necroterio.dao.MedicoDao;
 import br.com.necroterio.model.*;
+import br.com.necroterio.model.enums.MedicoEnum;
 import br.com.necroterio.model.enums.Regiao;
 
 import javax.annotation.PostConstruct;
@@ -32,6 +33,7 @@ public class AutopsiaBean implements Serializable {
     private String idIndigente;
     private List<Medico> listaMedicos;
     private MedicoDao medicoDao;
+    private MedicoEnum[] medicos;
 
     @PostConstruct
     public void init() {
@@ -172,5 +174,13 @@ public class AutopsiaBean implements Serializable {
 
     public void setListaMedicos(List<Medico> listaMedicos) {
         this.listaMedicos = listaMedicos;
+    }
+
+    public MedicoEnum[] getMedicos() {
+        return MedicoEnum.values();
+    }
+
+    public void setMedicos(MedicoEnum[] medicos) {
+        this.medicos = medicos;
     }
 }

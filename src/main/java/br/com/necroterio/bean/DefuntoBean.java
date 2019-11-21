@@ -5,6 +5,7 @@ import br.com.necroterio.model.Contato;
 import br.com.necroterio.model.Defunto;
 import br.com.necroterio.model.Pessoa;
 import br.com.necroterio.model.Telefone;
+import br.com.necroterio.model.enums.GavetaEnum;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,6 +22,7 @@ public class DefuntoBean implements Serializable {
     private Defunto defunto;
     private List<Defunto> defuntos;
     private DefuntoDao dao;
+    private GavetaEnum[] gavetaEnum;
 
     @PostConstruct
     public void init() {
@@ -96,4 +98,11 @@ public class DefuntoBean implements Serializable {
         this.defuntos = defuntos;
     }
 
+    public GavetaEnum[] getGavetaEnum() {
+        return GavetaEnum.values();
+    }
+
+    public void setGavetaEnum(GavetaEnum[] gavetaEnum) {
+        this.gavetaEnum = gavetaEnum;
+    }
 }

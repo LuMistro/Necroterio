@@ -1,5 +1,7 @@
 package br.com.necroterio.model;
 
+import br.com.necroterio.model.enums.GavetaEnum;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -18,6 +20,8 @@ public class Indigente {
     private Autopsia autopsia;
     @OneToOne(cascade = CascadeType.ALL)
     private Gaveta gaveta;
+    @Enumerated(EnumType.STRING)
+    private GavetaEnum gavetaEnums;
 
     public Integer getId() {
         return id;
@@ -75,6 +79,13 @@ public class Indigente {
         this.gaveta = gaveta;
     }
 
+    public GavetaEnum getGavetaEnums() {
+        return gavetaEnums;
+    }
+
+    public void setGavetaEnums(GavetaEnum gavetaEnums) {
+        this.gavetaEnums = gavetaEnums;
+    }
 
     @Override
     public boolean equals(Object o) {

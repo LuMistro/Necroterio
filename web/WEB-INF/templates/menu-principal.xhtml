@@ -7,39 +7,32 @@
 <h:form>
     <p:menubar>
         <p:submenu label="#{msg['menu.cadastro']}" icon="fa fa-floppy-o">
-            <p:menuitem value="Funcionário" outcome="/secured/Funcionario" icon="fa fa-male"/>
-            <p:menuitem value="Médico" outcome="/secured/Medico" icon="fa fa-stethoscope"/>
-            <p:menuitem value="Defunto" outcome="/secured/Defunto" icon="fa fa-bed"/>
+            <p:menuitem value="#{msg['menu.funcionario']}" outcome="/secured/Funcionario" icon="fa fa-male"/>
+            <p:menuitem value="#{msg['menu.medico']}" outcome="/secured/Medico" icon="fa fa-stethoscope"/>
+            <p:menuitem value="#{msg['menu.defunto']}" outcome="/secured/Defunto" icon="fa fa-bed"/>
         </p:submenu>
 
         <f:facet name="options">
-            <p:commandButton styleClass="bandeira-idioma"
-                             onclick="PF('dlg1').show();"
-                             icon="fa fa-comment-o"
-                             value="Português">
-                <f:setPropertyActionListener value="pt" target="#{idiomaBean.idiomaSelecionado}"/>
-            </p:commandButton>
+            <h:commandButton
+                    styleClass="bandeira-idioma"
+                    title="Inglês"
+                    image="/resources/imagens/england-flag.png">
+                <f:setPropertyActionListener
+                        target="#{idiomaBean.idiomaSelecionado}"
+                        value="en"/>
+            </h:commandButton>
 
-            <p:commandButton styleClass="bandeira-idioma"
-                             onclick="PF('dlg1').show();"
-                             icon="fa fa-comment-o"
-                             value="Inglês">
-                <f:setPropertyActionListener value="pt" target="#{idiomaBean.idiomaSelecionado}"/>
-            </p:commandButton>
-
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="dlg1">
-                <h:form>
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"
-                                     icon="pi pi-check">
-
-                    </p:commandButton>
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
-
-                </h:form>
-            </p:confirmDialog>
+            <h:commandButton
+                    styleClass="bandeira-idioma"
+                    title="Português"
+                    image="/resources/imagens/brazil-flag.png">
+                <f:setPropertyActionListener
+                        target="#{idiomaBean.idiomaSelecionado}"
+                        value="pt"/>
+            </h:commandButton>
 
             <p:button outcome="index" type="button" value="Home" icon="fa fa-home"/>
-            <p:commandButton value="Sair" icon="fa fa-power-off" action="#{loginBean.logout}"/>
+            <p:commandButton value="#{msg['menu.sair']}" icon="fa fa-power-off" action="#{loginBean.logout}"/>
         </f:facet>
     </p:menubar>
 </h:form>
