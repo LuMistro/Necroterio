@@ -9,6 +9,10 @@ import javax.persistence.TypedQuery;
 
 public class UsuarioDao extends GenericDao<Usuario, Integer> {
 
+    public UsuarioDao() {
+        super(Usuario.class);
+    }
+
     public Usuario verificaLogin(String email, String senha) {
         EntityManager manager = JpaUtil.getEntityManager();
 

@@ -1,5 +1,8 @@
 package br.com.necroterio.bean;
 
+import org.hibernate.tool.hbm2ddl.SchemaExportTask;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -10,8 +13,28 @@ import java.util.Locale;
 @SessionScoped
 public class IdiomaBean implements Serializable {
     private String idiomaSelecionado;
+    private Locale locale;
+
+    @PostConstruct
+    public void init() {
+        locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+    }
 
     public void setIdiomaSelecionado(String idiomaSelecionado) {
-        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale(idiomaSelecionado));
+        locale = new Locale(idiomaSelecionado);
+        FacesContext.getCurrentInstance()
+                .getViewRoot().setLocale(locale);
+    }
+
+    public String getIdiomaSelecionado() {
+        return idiomaSelecionado;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 }

@@ -16,6 +16,7 @@ public class LoginBean implements Serializable {
 
     private String email;
     private String senha;
+    private Usuario usuarioLogado;
 
     private UsuarioDao usuarioDao;
 
@@ -24,7 +25,7 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
-        Usuario usuarioLogado = usuarioDao.verificaLogin(email, senha);
+        usuarioLogado = usuarioDao.verificaLogin(email, senha);
 
         if (usuarioLogado == null) {
             FacesMessage mensagem = new FacesMessage(
@@ -35,7 +36,7 @@ public class LoginBean implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
         session.setAttribute("usuarioLogado", usuarioLogado);
-        return "/secured/index.xhtml?faces-redirect=true";
+        return "/secured/Dashboard.xhtml?faces-redirect=true";
     }
 
 
@@ -60,4 +61,5 @@ public class LoginBean implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
 }

@@ -1,0 +1,101 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="logo">Usuários</ui:define>
+    <ui:define name="titulo">Usuários</ui:define>
+
+    <ui:define name="conteudo">
+
+        <h:form id="campos">
+            <div class="ui-fluid">
+                <p:growl id="mesages" showDetail="true" sticky="true"/>
+
+                <h1 class="subtitulo" style="margin-top:0">Ficha de cadastro</h1>
+                <p:tabView>
+                    <p:tab title="Dados Pessoais">
+                        <p:panelGrid columns="2" layout="grid"
+                                     columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                                     styleClass="ui-panelgrid-blank">
+
+                            <p:outputLabel value="Nome: " for="nome"/>
+                            <p:inputText id="nome" required="true"
+                                         requiredMessage="Nome deve ser preenchido"
+                                         placeholder="Informe nome do usuário"
+                                         value="#{usuarioBean.usuario.nome}"/>
+
+                            <p:outputLabel value="Email: " for="email"/>
+                            <p:inputText id="email" required="true"
+                                         requiredMessage="E-mail deve ser preenchido"
+                                         placeholder="Informe email do usuário"
+                                         value="#{usuarioBean.usuario.email}"/>
+
+                            <p:outputLabel value="Senha: " for="senha"/>
+                            <p:inputText id="senha" required="true"
+                                         requiredMessage="Senha deve ser preenchido"
+                                         placeholder="Informe senha do usuário"
+                                         value="#{usuarioBean.usuario.senha}"/>
+
+                            <p:outputLabel value="Ativo: " for="ativo"/>
+                            <p:toggleSwitch id="ativo" value="#{usuarioBean.usuario.ativo}"/>
+
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:spacer/>
+                </p:tabView>
+            </div>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton value="Salvar" update="campos tabela" icon="fa fa-save"
+                                     action="#{usuarioBean.salvar}"/>
+
+                    <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                                     process="@this"
+                                     action="#{usuarioBean.limpar}"/>
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+
+        <p:spacer/>
+
+        <h:form id="tabela">
+            <p:dataTable var="d" value="#{usuarioBean.usuarios}">
+
+                <p:column headerText="ID" filterBy="#{d.id}" sortBy="#{d.id}" style="width: 50px">
+                    <h:outputText value="#{d.id}"/>
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{d.nome}" sortBy="#{d.nome}">
+                    <h:outputText value="#{d.nome}"/>
+                </p:column>
+
+                <p:column headerText="Email" sortBy="#{d.email}" filterBy="#{d.email}">
+                    <h:outputText value="#{d.email}"/>
+                </p:column>
+
+                <p:column headerText="Senha" sortBy="#{d.senha}" filterBy="#{d.senha}">
+                    <h:outputText value="#{d.senha}"/>
+                </p:column>
+
+                <p:column headerText="Ativo" sortBy="#{d.ativo}" filterBy="#{d.ativo}">
+                    <h:outputText value="#{d.ativo}"/>
+                </p:column>
+
+                <p:column headerClass="colunaAcoes">
+                    <p:commandButton icon="fa fa-pencil" update="campos tabela">
+                        <f:setPropertyActionListener value="#{d}"
+                                                     target="#{usuarioBean.usuario}"/>
+                    </p:commandButton>
+
+                    <p:commandButton icon="fa fa-trash" action="#{usuarioBean.excluir}" update="tabela">
+                        <f:setPropertyActionListener value="#{d}"
+                                                     target="#{usuarioBean.usuarios}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

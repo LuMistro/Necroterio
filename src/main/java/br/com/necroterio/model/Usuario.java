@@ -3,8 +3,8 @@ package br.com.necroterio.model;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
 @Table
+@Entity
 public class Usuario {
 
     @Id
@@ -13,6 +13,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    private Boolean ativo;
 
     public Integer getId() {
         return id;
@@ -44,6 +45,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
