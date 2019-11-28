@@ -1,3 +1,7 @@
+* {
+    font-family: Verdana;
+}
+
 html, body {
     background-color: #323232;
 }
@@ -46,14 +50,12 @@ html, body {
 .logo {
     text-align: center;
     font-weight: revert;
-    font-family: sans-serif;
     color: whitesmoke;
 }
 
 .subtitulo {
     font-size: 20px;
     font-weight: revert;
-    font-family: sans-serif;
     color: whitesmoke;
 }
 
@@ -70,6 +72,6 @@ html, body {
     margin-right: 10px;
 }
 
-.ui-menu.ui-menubar>.ui-menu-list>.ui-menuitem.ui-menubar-options {
+.ui-menu.ui-menubar > .ui-menu-list > .ui-menuitem.ui-menubar-options {
     display: flex;
 }

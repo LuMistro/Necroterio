@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,22 @@ public class UsuarioBean implements Serializable {
     }
 
     public void salvar() {
-        if (usuario.getId() == null) {
-            dao.salvar(usuario);
-        } else {
-            dao.editar(usuario);
+        try {
+            if (usuario.getId() == null) {
+                dao.salvar(usuario);
+            } else {
+                dao.editar(usuario);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesMessage mensagem = new FacesMessage();
+            mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+            mensagem.setSummary("Usuário e-mail repetido");
+
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            return;
         }
+
 
         limpar();
         buscar();

@@ -27,23 +27,23 @@ public class LoginBean implements Serializable {
     public String login() {
         usuarioLogado = usuarioDao.verificaLogin(email, senha);
 
-        if (usuarioLogado == null) {
-            FacesMessage mensagem = new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "E-mail ou senha inválido!", null);
-            FacesContext.getCurrentInstance().addMessage(null, mensagem);
-            return "/login.xhtml";
-        }
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        if (usuarioLogado.getAtivo().equals(true) && usuarioLogado != null) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
-        session.setAttribute("usuarioLogado", usuarioLogado);
-        return "/secured/Dashboard.xhtml?faces-redirect=true";
+            session.setAttribute("usuarioLogado", usuarioLogado);
+            return "/secured/Dashboard.xhtml?faces-redirect=true";
+        }
+        FacesMessage mensagem = new FacesMessage(
+        FacesMessage.SEVERITY_ERROR, "E-mail e senha inválido, ou usuário inativo!", null);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        return "/login.xhtml";
     }
 
 
     public String logout() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.invalidate();
-        return "login.xhtml?faces-redirect=true";
+        return "/login.xhtml?faces-redirect=true";
     }
 
     public String getEmail() {

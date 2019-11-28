@@ -143,7 +143,14 @@
         <p:spacer/>
 
         <h:form id="tabela">
-            <p:dataTable var="p" value="#{pessoaBean.pessoas}">
+            <p:dataTable var="p"
+                         lazy="true"
+                         rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorPosition="bottom"
+                         value="#{pessoaBean.model}">
                 <f:facet name="header">
                     #{msg['titulo.expandir']}
                 </f:facet>
@@ -217,6 +224,7 @@
                         </f:facet>
                     </p:panelGrid>
                 </p:rowExpansion>
+
             </p:dataTable>
         </h:form>
     </ui:define>

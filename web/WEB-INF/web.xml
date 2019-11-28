@@ -26,4 +26,8 @@
         <param-value>true</param-value>
     </context-param>
 
+    <welcome-file-list>
+        <welcome-file>/login.xhtml</welcome-file>
+    </welcome-file-list>
+
 </web-app>

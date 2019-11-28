@@ -1,11 +1,14 @@
 package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.PessoaDao;
+import br.com.necroterio.lazyModel.PessoaLazyModel;
 import br.com.necroterio.model.Endereco;
 import br.com.necroterio.model.Pessoa;
 import br.com.necroterio.model.Telefone;
 import br.com.necroterio.model.enums.Cidade;
 import br.com.necroterio.model.enums.Estado;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -14,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @ViewScoped
 @ManagedBean
@@ -25,6 +29,8 @@ public class PessoaBean implements Serializable {
     private Estado[] estados;
     private Cidade[] cidades;
     private Telefone telefone;
+
+    private LazyDataModel<Pessoa> model;
 
     @PostConstruct
     public void init() {
@@ -63,6 +69,7 @@ public class PessoaBean implements Serializable {
     }
 
     public void buscar() {
+        model = new PessoaLazyModel(dao);
         pessoas = dao.listarTodos();
     }
 
@@ -100,5 +107,9 @@ public class PessoaBean implements Serializable {
 
     public void setTelefone(Telefone telefone) {
         this.telefone = telefone;
+    }
+
+    public LazyDataModel<Pessoa> getModel() {
+        return model;
     }
 }
