@@ -12,14 +12,14 @@
 
     <ui:define name="conteudo">
         <p:tabView>
-            <p:tab title="Gráfico de barras">
+            <p:tab title="Quantidade de corpos que chegaram no último mês">
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-e">
                         <p:barChart model="#{graficosBean.barModel}" style="width: 100%; height: 500px;"/>
                     </div>
                 </div>
             </p:tab>
-            <p:tab title="Gráfico de Pizza">
+            <p:tab title="Quantidade de pessoas por estado">
                 <p:pieChart type="pie" model="#{graficosBean.pieChartModel}" style="width:100%;height:500px; "/>
             </p:tab>
         </p:tabView>
