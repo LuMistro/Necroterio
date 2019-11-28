@@ -6,4 +6,5 @@ public class DefuntoDao extends GenericDao<Defunto, Integer> {
     public DefuntoDao() {
         super(Defunto.class);
     }
+
 }

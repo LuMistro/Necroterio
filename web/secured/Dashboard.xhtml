@@ -11,14 +11,17 @@
 
 
     <ui:define name="conteudo">
-
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-e">
-                <p:barChart model="#{graficosBean.barModel}" style="width: 100%; height: 500px;"/>
-            </div>
-        </div>
-
-
+        <p:tabView>
+            <p:tab title="Gráfico de barras">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-e">
+                        <p:barChart model="#{graficosBean.barModel}" style="width: 100%; height: 500px;"/>
+                    </div>
+                </div>
+            </p:tab>
+            <p:tab title="Gráfico de Pizza">
+                <p:pieChart type="pie" model="#{graficosBean.pieChartModel}" style="width:100%;height:500px; "/>
+            </p:tab>
+        </p:tabView>
     </ui:define>
-
 </ui:composition>

@@ -31,7 +31,7 @@ public class LoginBean implements Serializable {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
             session.setAttribute("usuarioLogado", usuarioLogado);
-            return "/secured/Dashboard.xhtml?faces-redirect=true";
+            return "/secured/Funcionario.xhtml?faces-redirect=true";
         }
         FacesMessage mensagem = new FacesMessage(
         FacesMessage.SEVERITY_ERROR, "E-mail e senha inválido, ou usuário inativo!", null);

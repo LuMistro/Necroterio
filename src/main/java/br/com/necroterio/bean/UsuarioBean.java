@@ -39,8 +39,8 @@ public class UsuarioBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             FacesMessage mensagem = new FacesMessage();
-            mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-            mensagem.setSummary("Usuário e-mail repetido");
+            mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensagem.setSummary("Dois usuários não podem ter o mesmo e-mail!");
 
             FacesContext.getCurrentInstance().addMessage(null, mensagem);
             return;

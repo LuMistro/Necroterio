@@ -2,10 +2,13 @@ package br.com.necroterio.dao;
 
 import br.com.necroterio.dao.filter.PessoaFilter;
 import br.com.necroterio.dao.util.JpaUtil;
+import br.com.necroterio.dto.PessoasPorEstadoDTO;
 import br.com.necroterio.model.Pessoa;
+import br.com.necroterio.model.enums.Estado;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,4 +58,25 @@ public class PessoaDao extends GenericDao<Pessoa, Integer> {
         TypedQuery<Long> query = manager.createQuery(jpql, Long.class);
         return query.getSingleResult().intValue();
     }
+
+    public List<PessoasPorEstadoDTO> buscaQuantidadeDefuntoPorEstado() {
+
+        EntityManager manager = JpaUtil.getEntityManager();
+
+        StringBuilder jpqlBuilder = new StringBuilder();
+        jpqlBuilder.append(" select new br.com.necroterio.dto.PessoasPorEstadoDTO( ");
+        jpqlBuilder.append("   a.estado,");
+        jpqlBuilder.append("   count(a.estado)");
+        jpqlBuilder.append("   ) ");
+        jpqlBuilder.append("   from Pessoa p");
+        jpqlBuilder.append("   right join p.endereco a");
+        jpqlBuilder.append("   group by a.estado");
+
+        TypedQuery<PessoasPorEstadoDTO> query = manager.createQuery(jpqlBuilder.toString(), PessoasPorEstadoDTO.class);
+        List<PessoasPorEstadoDTO> resultado = query.getResultList();
+
+        manager.close();
+        return resultado;
+    }
+
 }
