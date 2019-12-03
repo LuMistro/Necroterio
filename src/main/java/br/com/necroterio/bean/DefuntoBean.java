@@ -1,10 +1,7 @@
 package br.com.necroterio.bean;
 
 import br.com.necroterio.dao.DefuntoDao;
-import br.com.necroterio.model.Contato;
-import br.com.necroterio.model.Defunto;
-import br.com.necroterio.model.Pessoa;
-import br.com.necroterio.model.Telefone;
+import br.com.necroterio.model.*;
 import br.com.necroterio.model.enums.GavetaEnum;
 
 import javax.annotation.PostConstruct;
@@ -59,6 +56,7 @@ public class DefuntoBean implements Serializable {
         defunto = new Defunto();
         defunto.setContato(new Contato());
         defunto.setPessoa(new Pessoa());
+        defunto.setAutopsia(new Autopsia());
     }
 
     public boolean validaDatas() {
@@ -67,7 +65,6 @@ public class DefuntoBean implements Serializable {
 
         if (defunto.getDataEntrada().after(defunto.getDataMorte())
                 && defunto.getDataEntrada().after(defunto.getPessoa().getNascimento())
-                && defunto.getDataEntrada().before(defunto.getDataSaida())
                 && defunto.getDataMorte().after(defunto.getPessoa().getNascimento())
                 && defunto.getDataMorte().before(defunto.getDataSaida())
                 && defunto.getPessoa().getNascimento().before(defunto.getDataSaida())) {
