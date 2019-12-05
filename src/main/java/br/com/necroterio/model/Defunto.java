@@ -3,6 +3,7 @@ package br.com.necroterio.model;
 import br.com.necroterio.model.enums.GavetaEnum;
 
 import javax.persistence.*;
+import javax.validation.metadata.CascadableDescriptor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -23,7 +24,7 @@ public class Defunto {
     private Gaveta gaveta;
     @Enumerated(EnumType.STRING)
     private GavetaEnum gavetaEnum;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Autopsia autopsia;
     @OneToOne(cascade = CascadeType.ALL)
     private Contato contato;
